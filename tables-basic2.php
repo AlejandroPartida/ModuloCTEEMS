@@ -27,6 +27,9 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
 </head>
@@ -224,6 +227,48 @@
             </div>
         </header><!-- /header -->
         <!-- Header-->
+        <div class="container">
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Editar plantel</h4>
+
+                        </div>
+                        <div class="modal-body">
+                            <form action="tables-basic2.php" method="post" >
+                                <div class="input-group" style="margin-top: 15px;">
+                                    <input id="tipo" type="text" class="form-control" name="tipo" placeholder="Tipo de Plantel" required>
+                                </div>
+                                <div class="input-group" style="margin-top: 15px;">
+                                    <input id="numero" autocomplete="off" type="text" class="form-control"
+                                        name="numero" placeholder="Número de Plantel" required></div>
+
+                                <div class="input-group" style="margin-top: 4%;">
+                                    <input id="nombre" type="text" class="form-control" name="nombre"
+                                        placeholder="Nombre de Plantel" required>
+                                </div>
+                                <div class="input-group" style="margin-top: 4%;">
+                                    <input id="telefono" type="text" class="form-control" name="telefono"
+                                        placeholder="Teléfono de Plantel" required>
+                                </div>
+                                <div class="input-group" style="margin-top: 4%;">
+                                    <input id="id" type="hidden" class="form-control" name="id">
+                                </div>
+                                <button type="submit" class="btn btn-success" name="editar">Editar</button>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
@@ -270,33 +315,64 @@
                                             <th>Numero de plantel</th>
                                             <th>Nombre del plantel</th>
                                             <th>Numero del plantel</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
 
                                     <?php
-                                      $sql = "SELECT * FROM plantel;";
+                                        if(isset($_POST["editar"])) {
+                                            $tipoU = $_POST["tipo"];
+                                            $numeroU = $_POST["numero"];
+                                            $nombreU = $_POST["nombre"];
+                                            $telefonoU = $_POST["telefono"];
+                                            $idPlantel = $_POST["id"];
+                                            $sqlUpdate = "UPDATE plantel SET tipo_plantel = '$tipoU', numero_plantel = $numeroU, nombre_plantel = '$nombreU', telefono_plantel = $telefonoU WHERE id_plantel = $idPlantel";
+                                            $res = $conn->query($sqlUpdate);
 
-                                        $result = $conn->query($sql);
-
-                                        if ($result->num_rows > 0) {
-                                          // output data of each row
-                                          while($row = $result->fetch_assoc()) {
-
-                                  echo  "<tbody>";
-                                  echo     "<tr>";
-                                  echo      "<td>" .$row["id_plantel"]."</td>";
-                                  echo      "<td>" .$row["tipo_plantel"]. "</td>";
-                                  echo      "<td>" .$row["numero_plantel"]. "</td>";
-                                  echo      "<td>".$row["nombre_plantel"]. "</td>";
-                                  echo      "<td>".$row["telefono_plantel"]. "</td>";
-                                  echo     "</tr>";
+                                            if($res === true) {
+                                                echo("<script type='text/javascript'> 
+                                                    Swal.fire({
+                                                    title: 'Se han guardado tus cambios.',
+                                                    type: 'success',
+                                                    confirmButtonColor: '#3085d6',
+                                                    confirmButtonText: 'Aceptar'
+                                                }); </script>");
+                                            } else { 
+                                                echo  mysqli_errno($conn) . ": " . mysqli_error($conn) . "\n";;
+                                            }
+                                        }
 
 
+                                        
+                                        $sql = "SELECT * FROM plantel;";
 
+                                            $result = $conn->query($sql);
+
+                                            if ($result->num_rows > 0) {
+                                            // output data of each row
+                                            while($row = $result->fetch_assoc()) {
+                                                $id = $row["id_plantel"];
+                                                $tipo = $row["tipo_plantel"];
+                                                $numero = $row["numero_plantel"];
+                                                $nombre = $row["nombre_plantel"];
+                                                $telefono = $row["telefono_plantel"];
+                                                echo  "<tbody>";
+                                                echo     "<tr>";
+                                                echo      "<td>" .$row["id_plantel"]."</td>";
+                                                echo      "<td>" .$row["tipo_plantel"]. "</td>";
+                                                echo      "<td>" .$row["numero_plantel"]. "</td>";
+                                                echo      "<td>".$row["nombre_plantel"]. "</td>";
+                                                echo      "<td>".$row["telefono_plantel"]. "</td>";
+                                                printf('<td><button type="button" class="btn btn-light" onclick="setValuesOnModalInputs(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')" data-toggle="modal"
+                                                            data-target="#myModal">Editar</button></td>', $id, $tipo, $numero, $nombre, $telefono);
+                                                echo     "</tr>";
+
+
+
+                        }
+                    } else {
+                    echo "0 results";
                     }
-                  } else {
-                  echo "0 results";
-                  }
                   ?>
                 </tbody>
                   </table>
@@ -336,6 +412,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/editarPlantel.js"></script>
 
 
     <script src="assets/js/lib/data-table/datatables.min.js"></script>

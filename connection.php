@@ -3,7 +3,7 @@
 	$servidor="localhost";
     $user="root";
     $pass="";
-    $bd="cecyte.sql";
+    $bd="cecyte";
    /*
    	$servidor="ejemplo.dominio.com";
     $bd="congresoft";
