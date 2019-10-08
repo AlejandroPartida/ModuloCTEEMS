@@ -4,7 +4,11 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
+<<<<<<< HEAD
     <meta charset="utf-8">
+=======
+    <meta charset="utf-8"> 
+>>>>>>> Modulo de Agregrar en modales
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Ela Admin - HTML5 Admin Template</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
@@ -31,6 +35,33 @@
 <body>
 <?php
    include("connection.php");
+   if (isset($_POST['flineamientos']))
+	{
+
+
+    $nombre = $_POST['nombres'];
+        $descripcion = $_POST['descripcion'];
+
+        $sql="insert into lineamientos VALUES('','$nombre','$descripcion')";
+    //ingresamos la informacion a la base de datos
+        if($result=mysqli_query($conn,$sql))        
+        {
+            echo "<script type='text/javascript'>
+            document.addEventListener('DOMContentLoaded', function(event) {
+                swal('Exito!', '¡Se ha registrado exitosamente el lineamiento!', 'success');
+                });
+                </script>";
+        }
+        else
+        {
+            echo "<script type='text/javascript'>
+            document.addEventListener('DOMContentLoaded', function(event) {
+            swal('Error!', '¡No se registro el lineamiento correctamente!', 'error');
+            });
+            </script>";
+        }
+
+	}
     if(isset($_POST['fplanteles']))
     {
         $tipo=$_POST['selectplan'];
@@ -486,23 +517,21 @@
                                     <h5 class="modal-title" id="smallModalLabel"> <strong>LINEAMIENTOS</strong></h5>
                                 </div>
                                 <div class="modal-body" style="padding: 30px;">
-                                    <div class="form-group">
-                                        <label for="text-input" class=" form-control-label">Número de lineamiento</label>
-                                        <input required="" type="text" id="text-input" name="text-input" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="text-input" class=" form-control-label">Nombre</label>
-                                        <input required="" type="text" id="text-input" name="text-input" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="text-input" class=" form-control-label">Descripción</label>
-                                        <textarea name="textarea-input" id="textarea-input" rows="5" placeholder="" class="form-control"></textarea>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-primary">Guardar</button>
-                                </div>
+								<form action="agregar.php" method="POST" name="flineamientos">
+        										<div class="form-group">
+        											<label for="nombres" class=" form-control-label">Nombre</label>
+        											<input required="" type="text" id="nombres" name="nombres" class="form-control">
+        										</div>
+        										<div class="form-group">
+        											<label for="descripcion" class=" form-control-label">Descripción</label>
+        											<textarea name="descripcion" id="descripcion" rows="5" placeholder="" class="form-control"></textarea>
+        										</div>
+        									</div>
+        									<div class="modal-footer">
+        										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        										<button type="submit" class="btn btn-primary" name="flineamientos">Guardar</button>
+        							</div>
+        							</form>
                             </div>
                         </div>
                     </div>
