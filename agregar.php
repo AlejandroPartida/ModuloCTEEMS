@@ -37,29 +37,27 @@
    include("connection.php");
    if (isset($_POST['flineamientos']))
 	{
+		$nombre = $_POST['nombres'];
+		$descripcion = $_POST['descripcion'];
 
-
-    $nombre = $_POST['nombres'];
-        $descripcion = $_POST['descripcion'];
-
-        $sql="insert into lineamientos VALUES('','$nombre','$descripcion')";
+		$sql="insert into lineamientos VALUES('','$nombre','$descripcion')";
     //ingresamos la informacion a la base de datos
-        if($result=mysqli_query($conn,$sql))        
-        {
-            echo "<script type='text/javascript'>
-            document.addEventListener('DOMContentLoaded', function(event) {
-                swal('Exito!', '¡Se ha registrado exitosamente el lineamiento!', 'success');
-                });
-                </script>";
-        }
-        else
-        {
-            echo "<script type='text/javascript'>
-            document.addEventListener('DOMContentLoaded', function(event) {
-            swal('Error!', '¡No se registro el lineamiento correctamente!', 'error');
-            });
-            </script>";
-        }
+		if($result=mysqli_query($conn,$sql))        
+		{
+			echo "<script type='text/javascript'>
+			document.addEventListener('DOMContentLoaded', function(event) {
+				swal('Exito!', '¡Se ha registrado exitosamente el lineamiento!', 'success');
+				});
+				</script>";
+		}
+		else
+		{
+			echo "<script type='text/javascript'>
+			document.addEventListener('DOMContentLoaded', function(event) {
+			swal('Error!', '¡No se registro el lineamiento correctamente!', 'error');
+			});
+			</script>";
+		}
 
 	}
     if(isset($_POST['fplanteles']))
