@@ -17,7 +17,7 @@ function setValuesOnModalInputs(id1, tipo1, numero1, nombre, telefono1) {
         
 };
 
-//commit de kike
+//commit de kike otra vez
 
 function clearModalInputs() {
     nombrePlantel.value = '';
