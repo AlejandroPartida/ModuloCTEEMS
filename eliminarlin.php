@@ -4,7 +4,7 @@
 
 		extract($_GET);
 
-		$eliminar = mysqli_query($conn, "DELETE FROM lin WHERE id_lineamiento = 'xd'");
+		$eliminar = mysqli_query($conn, "DELETE FROM lineamientos WHERE id_lineamiento = 'xd'");
 
 
 		if ($eliminar) {
