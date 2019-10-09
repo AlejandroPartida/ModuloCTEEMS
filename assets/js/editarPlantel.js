@@ -5,6 +5,8 @@ const nombrePlantel = document.getElementById('nombre');
 const telefono = document.getElementById('telefono');
 
 
+//Comentario Waldo
+
 function setValuesOnModalInputs(id1, tipo1, numero1, nombre, telefono1) {
     clearModalInputs();
     id.value = id1;
