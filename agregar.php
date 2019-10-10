@@ -39,7 +39,7 @@
 	{
 		$nombre = $_POST['nombres'];
 		$descripcion = $_POST['descripcion'];
-
+ 
 		$sql="insert into lineamientos VALUES('','$nombre','$descripcion')";
     //ingresamos la informacion a la base de datos
 		if($result=mysqli_query($conn,$sql))        
