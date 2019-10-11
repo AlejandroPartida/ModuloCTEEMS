@@ -34,7 +34,7 @@
       $texto3 = 'Tipo de Plantel:'.$reg['tipo_plantel'];
       $texto4 = 'Numero del Plantel:'.$reg['numero_plantel'];
       $texto5 = 'Telefono del Plantel:'.$reg['telefono_plantel'];
-      $fuente = 'C:\Windows\Fonts\bgothl.ttf';//cambiar fuente dependiendo equipo y corregir
+      $fuente = 'font\Pixellari.ttf';//cambiar fuente dependiendo equipo y corregir
       $fuente2 = 2;
       $negro = imagecolorallocate($imagen, 0, 0, 0);
 
