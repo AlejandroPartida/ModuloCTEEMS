@@ -355,13 +355,13 @@
                                             if ($result->num_rows > 0) {
                                             // output data of each row
                                             while($row = $result->fetch_assoc()) {
-                                                $id = $row["id"];
+                                                $id = $row["id_lineamiento"];
                                                 $nombre = $row["nombre"];
                                                 $descripcion = $row["descripcion"];
                                                 echo  "<form method='post'>";
                                                 echo  "<tbody>";
                                                 echo     "<tr>";
-                                                echo      "<td>" .utf8_decode($row["id"])."</td>";
+                                                echo      "<td>" .utf8_decode($row["id_lineamiento"])."</td>";
                                                 echo      "<td>" .utf8_decode($row["nombre"]). "</td>";
                                                 echo      "<td>" .utf8_decode($row["descripcion"]). "</td>";
                                                 
