@@ -59,9 +59,10 @@
     if (isset($_POST['findicadores']))
 	{
 		$nombre = $_POST['nombrei'];
-		$descripcion = $_POST['descripcioni'];
+        $descripcion = $_POST['descripcioni'];
+        $idU=$_POST['selectidi'];
  
-		$sql="insert into indicadores VALUES('','$nombre','$descripcion','')";
+		$sql="insert into indicadores VALUES('','$nombre','$descripcion','$idU')";
 
         if($result=mysqli_query($conn,$sql))        
 		{
@@ -592,6 +593,23 @@
         											<textarea name="descripcioni" id="descripcioni" rows="5" placeholder="" class="form-control"></textarea>
         										</div>
         									</div>
+                                            <div class="row form-group">
+                                        <div class="col col-md-4"><label for="selectidi" class=" form-control-label">Unidad de medida</label></div>
+                                        <div class="col-8 col-md-8">
+                                            <select name="selectidi" id="selectidi" class="form-control" required="">
+                                                <option value="">Selecciona...</option>
+                                                <?php
+                                                     $sql2="select * from unidad";
+                                                     $res2=mysqli_query($conn,$sql2);
+                                                     while($un=mysqli_fetch_array($res2))
+                                                     {
+                                                         echo '<option value="'.$un[0].'">'.$un[1].'</option>';
+                                                     }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                
         									<div class="modal-footer">
         										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         										<button type="submit" class="btn btn-primary" name="findicadores">Guardar</button>
