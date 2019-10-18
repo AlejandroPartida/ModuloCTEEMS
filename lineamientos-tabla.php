@@ -237,21 +237,17 @@
 
                         </div>
                         <div class="modal-body">
-                            <form action="tables-basic2.php" method="post" >
+                            <form action="lineamientos-tabla.php" method="post" >
                                 <div class="input-group" style="margin-top: 15px;">
-                                    <input id="tipo" type="text" class="form-control" name="tipo" placeholder="Tipo de Plantel" required>
+                                    <input id="id" type="text" class="form-control" name="id_lineamiento" placeholder="Id Lineamineto" required>
                                 </div>
                                 <div class="input-group" style="margin-top: 15px;">
-                                    <input id="numero" autocomplete="off" type="text" class="form-control"
-                                        name="numero" placeholder="Número de Plantel" required></div>
+                                    <input id="nombre" autocomplete="off" type="text" class="form-control"
+                                        name="nombre" placeholder="Nombre" required></div>
 
                                 <div class="input-group" style="margin-top: 4%;">
-                                    <input id="nombre" type="text" class="form-control" name="nombre"
-                                        placeholder="Nombre de Plantel" required>
-                                </div>
-                                <div class="input-group" style="margin-top: 4%;">
-                                    <input id="telefono" type="text" class="form-control" name="telefono"
-                                        placeholder="Teléfono de Plantel" required>
+                                    <input id="descripcion" type="text" class="form-control" name="descripcion"
+                                        placeholder="Descripcion" required>
                                 </div>
                                 <div class="input-group" style="margin-top: 4%;">
                                     <input id="id" type="hidden" class="form-control" name="id">
@@ -262,7 +258,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -313,44 +309,43 @@
                                             <th>ID</th>
                                             <th>Nombre de lineamiento</th>
                                             <th>Descripción del lineamiento</th>
+                                            <th>Acciones</th>
 
                                         </tr>
                                     </thead>
 
                                     <?php
                                         require('fpdf/fpdf.php');
-                                        
-                                        
+
+
 
                                         if(isset($_POST["editar"])) {
-                                            $tipoU = $_POST["tipo"];
-                                            $numeroU = $_POST["numero"];
-                                            $nombreU = $_POST["nombre"];
-                                            $telefonoU = $_POST["telefono"];
-                                            $idPlantel = $_POST["id"];
-                                            $sqlUpdate = "UPDATE plantel SET tipo_plantel = '$tipoU', numero_plantel = $numeroU, nombre_plantel = '$nombreU', telefono_plantel = $telefonoU WHERE id_plantel = $idPlantel";
+                                            $id1 = $_POST["id_lineamiento"];
+                                            $nombreL = $_POST["nombre"];
+                                            $descL = $_POST["descripcion"];
+                                            $sqlUpdate = "UPDATE lineamientos SET id_lineamiento = '$id1', nombre = '$nombreL', descripcion = '$descL' WHERE id_lineamiento = '$id1';";
                                             $res = $conn->query($sqlUpdate);
 
                                             if($res === true) {
-                                                echo("<script type='text/javascript'> 
+                                                echo("<script type='text/javascript'>
                                                     Swal.fire({
                                                     title: 'Se han guardado tus cambios.',
                                                     type: 'success',
                                                     confirmButtonColor: '#3085d6',
                                                     confirmButtonText: 'Aceptar'
                                                 }); </script>");
-                                            } else { 
-                                                echo  mysqli_errno($conn) . ": " . mysqli_error($conn) . "\n";;
+                                            } else {
+                                              //  echo  mysqli_errno($conn) . ": " . mysqli_error($conn) . "\n";;
                                             }
                                         }
 
 
-                                        
+
                                         $sql = "SELECT * FROM lineamientos;";
 
                                             $result = $conn->query($sql);
 
-                                            
+
 
                                             if ($result->num_rows > 0) {
                                             // output data of each row
@@ -364,15 +359,15 @@
                                                 echo      "<td>" .utf8_decode($row["id_lineamiento"])."</td>";
                                                 echo      "<td>" .utf8_decode($row["nombre"]). "</td>";
                                                 echo      "<td>" .utf8_decode($row["descripcion"]). "</td>";
-                                                
-                                                //printf('<td><button type="button" class="btn btn-light" onclick="setValuesOnModalInputs(\'%s\', \'%s\', \'%s\')" data-toggle="modal"
+
+                                                printf('<td><button type="button" class="btn btn-light" onclick="setValuesOnModalInputs(\'%s\', \'%s\', \'%s\')" data-toggle="modal"
                                                             //data-target="#myModal">Editar</button></td>', $id, $nombre, $descripcion);
                                                 echo     "</tr>";
                                                 echo     "</form>";
 
                                             }
 
-                                            
+
 
                     } else {
                     echo "0 results";
@@ -417,7 +412,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/editarPlantel.js"></script>
+    <script src="assets/js/editarLineamientos.js"></script>
 
 
     <script src="assets/js/lib/data-table/datatables.min.js"></script>
