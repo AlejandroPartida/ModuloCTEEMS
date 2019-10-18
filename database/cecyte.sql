@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-10-2019 a las 22:20:15
+-- Tiempo de generación: 18-10-2019 a las 09:11:19
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 5.6.40
 
@@ -25,6 +25,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `indicadores`
+--
+
+CREATE TABLE `indicadores` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(30) NOT NULL,
+  `descripcion` varchar(150) NOT NULL,
+  `fk_unidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `indicadores`
+--
+
+INSERT INTO `indicadores` (`id`, `nombre`, `descripcion`, `fk_unidad`) VALUES
+(2, 'nuevo', 'nn', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `lineamientos`
 --
 
@@ -33,6 +53,13 @@ CREATE TABLE `lineamientos` (
   `nombre` varchar(200) NOT NULL,
   `descripcion` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `lineamientos`
+--
+
+INSERT INTO `lineamientos` (`id_lineamiento`, `nombre`, `descripcion`) VALUES
+(1, 'd', 'd');
 
 -- --------------------------------------------------------
 
@@ -100,9 +127,34 @@ CREATE TABLE `plantel` (
 INSERT INTO `plantel` (`clave_plantel`, `tipo_plantel`, `numero_plantel`, `nombre_plantel`, `telefono_plantel`) VALUES
 ('1', 'CECyTE', 19, 'Llano grande', 6188761709);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `unidad`
+--
+
+CREATE TABLE `unidad` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `unidad`
+--
+
+INSERT INTO `unidad` (`id`, `nombre`) VALUES
+(1, 'número entero');
+
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `indicadores`
+--
+ALTER TABLE `indicadores`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `unidad` (`fk_unidad`);
 
 --
 -- Indices de la tabla `lineamientos`
@@ -130,14 +182,26 @@ ALTER TABLE `plantel`
   ADD PRIMARY KEY (`clave_plantel`);
 
 --
+-- Indices de la tabla `unidad`
+--
+ALTER TABLE `unidad`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `indicadores`
+--
+ALTER TABLE `indicadores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `lineamientos`
 --
 ALTER TABLE `lineamientos`
-  MODIFY `id_lineamiento` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_lineamiento` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `logos`
@@ -146,8 +210,20 @@ ALTER TABLE `logos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT de la tabla `unidad`
+--
+ALTER TABLE `unidad`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `indicadores`
+--
+ALTER TABLE `indicadores`
+  ADD CONSTRAINT `indicadores_ibfk_1` FOREIGN KEY (`fk_unidad`) REFERENCES `unidad` (`id`);
 
 --
 -- Filtros para la tabla `personal`
