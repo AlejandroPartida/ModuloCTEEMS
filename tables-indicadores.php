@@ -1,5 +1,3 @@
-<?php include("connection.php"); ?>
-
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -26,9 +24,6 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
@@ -60,14 +55,14 @@
                             <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children active dropdown">
+             <li class="menu-item-has-children active dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tablas</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="tables-basic1.php">Personal</a></li>
                             <li><i class="fa fa-table"></i><a href="tables-basic2.php">Plantel</a></li>
                             <li><i class="fa fa-table"></i><a href="tables-basic3.php">Lineamientos</a></li>
                              <li><i class="fa fa-table"></i><a href="tables-indicadores.php">Indicadores</a></li>
-                              <li><i class="fa fa-table"></i><a href="tables-basic3.php">Unidad</a></li>
+                              <li><i class="fa fa-table"></i><a href="tables-unidad.php">Unidad</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -230,48 +225,6 @@
             </div>
         </header><!-- /header -->
         <!-- Header-->
-        <div class="container">
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Editar plantel</h4>
-
-                        </div>
-                        <div class="modal-body">
-                            <form action="tables-basic2.php" method="post" >
-                                <div class="input-group" style="margin-top: 15px;">
-                                    <input id="tipo" type="text" class="form-control" name="tipo" placeholder="Tipo de Plantel" required>
-                                </div>
-                                <div class="input-group" style="margin-top: 15px;">
-                                    <input id="numero" autocomplete="off" type="text" class="form-control"
-                                        name="numero" placeholder="Número de Plantel" required></div>
-
-                                <div class="input-group" style="margin-top: 4%;">
-                                    <input id="nombre" type="text" class="form-control" name="nombre"
-                                        placeholder="Nombre de Plantel" required>
-                                </div>
-                                <div class="input-group" style="margin-top: 4%;">
-                                    <input id="telefono" type="text" class="form-control" name="telefono"
-                                        placeholder="Teléfono de Plantel" required>
-                                </div>
-                                <div class="input-group" style="margin-top: 4%;">
-                                    <input id="id" type="hidden" class="form-control" name="id">
-                                </div>
-                                <button type="submit" class="btn btn-success" name="editar">Editar</button>
-                            </form>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
@@ -305,99 +258,140 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Tabla plantel</strong>
+                                <strong class="card-title">Data Table</strong>
                             </div>
                             <div class="card-body">
-                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                <?php
 
+                                            $servidor="127.0.0.1";
+                                              $bd="cecyte";
+                                              $user="root";
+                                              $pass="";
+                                              $dbconn=mysqli_connect($servidor, $user, $pass, $bd);
+ 
+// Revisamos el estado de la conexion en caso de errores. 
+                                        if(!$dbconn) {
+                                        echo "Error: No se ha podido conectar a la base de datos\n";
+                                        } else {
+                                        echo "\n";
 
-                                    <thead>
-                                        <tr>
-                                            <th>Clave</th>
-                                            <th>Plantel</th>
-                                            <th>Numero de plantel</th>
-                                            <th>Nombre del plantel</th>
-                                            <th>Telefono</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
+                                             $sql=mysqli_query($dbconn,"SELECT * FROM indicador");
+                                             ?>
+                               
 
-                                    <?php
-                                        if(isset($_POST["editar"])) {
-                                            $tipoU = $_POST["tipo"];
-                                            $numeroU = $_POST["numero"];
-                                            $nombreU = $_POST["nombre"];
-                                            $telefonoU = $_POST["telefono"];
-                                            $idPlantel = $_POST["id"];
-                                            $sqlUpdate = "UPDATE plantel SET tipo_plantel = '$tipoU', numero_plantel = $numeroU, nombre_plantel = '$nombreU', telefono_plantel = $telefonoU WHERE clave_plantel = $idPlantel";
-                                            $res = $conn->query($sqlUpdate);
+                            <table id='bootstrap-data-table' class='table table-striped table-bordered'>
+                                                  <thead>
 
-                                            if($res === true) {
-                                                echo("<script type='text/javascript'> 
-                                                    Swal.fire({
-                                                    title: 'Se han guardado tus cambios.',
-                                                    type: 'success',
-                                                    confirmButtonColor: '#3085d6',
-                                                    confirmButtonText: 'Aceptar'
-                                                }); </script>");
-                                            } else { 
-                                                echo  mysqli_errno($conn) . ": " . mysqli_error($conn) . "\n";;
-                                            }
-                                        }
+                                                    <tr>
+                                                     <td>Clave</td>
+                                                        <td>Nombre</td>
+                                                       <td>Descripcion</td>
+                                                        <td>Unidad</td>
+                                                    
+                                                        <td>Reporte</td>
+                                                    </tr>
+                                                  </thead>
+                                            <?php
+                                                while ($reg=mysqli_fetch_array($sql))
+                                                {
+                                                  echo "<tr><td>".$reg['id_indicador']."</td>";
+                                                  echo "<td>".$reg['nombre']."</td>";
+                                                  echo "<td>".$reg['descripcion']."</td>";
+                                                  echo"<td>".$reg['unidad']."</td>";
+                                    
+                                                 echo "<td>
+                                                  <form method='post' action='tables-indicadores.php'>
+                                
+                                                    <input type='hidden' value='$reg[id_indicador]' name='visto'>
+                                                    <button type='submit' class='btn btn-light'>Ver</button>
 
-
-                                        
-                                        $sql = "SELECT * FROM plantel;";
-
-                                            $result = $conn->query($sql);
-
-                                            if ($result->num_rows > 0) {
-                                            // output data of each row
-                                            while($row = $result->fetch_assoc()) {
-                                                $id = $row["clave_plantel"];
-                                                $tipo = $row["tipo_plantel"];
-                                                $numero = $row["numero_plantel"];
-                                                $nombre = $row["nombre_plantel"];
-                                                $telefono = $row["telefono_plantel"];
-                                                echo  "<tbody>";
-                                                echo     "<tr>";
-                                                echo      "<td>" .$row["clave_plantel"]."</td>";
-                                                echo      "<td>" .$row["tipo_plantel"]. "</td>";
-                                                echo      "<td>" .$row["numero_plantel"]. "</td>";
-                                                echo      "<td>".$row["nombre_plantel"]. "</td>";
-                                                echo      "<td>".$row["telefono_plantel"]. "</td>";
-                                               
-                                                  echo "<td>
-                                                  <form method='post' action='PDF/pdf.php'>
-                                                    <input type='hidden' value='$row[clave_plantel]' name='pedido'>
-                                                    <button type='submit'class='btn btn-light'>Imprimir</button>
                                                   </form>
+
+
+                                                 
                                                  </td>";
-                                                printf('<td><button type="button" class="btn btn-light" onclick="setValuesOnModalInputs(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')" data-toggle="modal"
-                                                            data-target="#myModal">Editar</button></td>', $id, $tipo, $numero, $nombre, $telefono);
-                                                  echo "<td><button type='button' class='btn btn-light'>Eliminar</button></td>";
+                                                   echo "<td><button type='button' class='btn btn-light'>Eliminar</button></td>";
+                                                     echo "<td><button type='button' class='btn btn-light'>Editar</button></td>";
+                                                       echo "<td><button type='button' class='btn btn-light'>Imprimir</button></td>";
+                                                  
+                                                }
+                                              }
+                                                echo "</tr>     </table>";
+                                        ?>
+                            </div>
+                        </div>
+                    </div>
 
-                                                echo     "</tr>";
 
+                </div>
 
+                <script language="JavaScript">
 
+                function muestra_oculta(id){
+                if (document.getElementById){ 
+                var el = document.getElementById(id); 
+                el.style.display = (el.style.display == 'none') ? 'block' : 'none'; 
+                }
+                }
+                window.onload = function(){}
+               </script>
+
+               <p><a style='cursor: pointer;' onclick="muestra_oculta('contenido_a_mostrar')" title="">Mostrar / Ocultar</a></p>
+               
+              <div id="contenido_a_mostrar">
+                <?php
+               
+                
+              
+                if($_POST){
+                    $numero=$_POST['visto'];
+                    $servidor="127.0.0.1";
+                    $bd="cecyte";
+                    $user="root";
+                    $pass="";
+                    $dbconn=mysqli_connect($servidor, $user, $pass, $bd);
+ 
+                    if(!$dbconn) {
+                      echo "Error: No se ha podido conectar a la base de datos\n";
+                        } else {
+                        echo "\n";
+
+                        $sql=mysqli_query($dbconn,"SELECT * FROM indicador where id_indicador='$numero'");
+
+                         echo "<TABLE>";
+
+                        while ($reg=mysqli_fetch_array($sql))
+                        {
+                            echo "<TR><TD>Clave:   </TD><TD>".$reg['id_indicador']."</TD></TR>";
+                            echo "<TR><TD>Nombre:  </TD><TD>".$reg['nombre']."</TD></TR>";
+                            echo "<TR><TD>Descripcion:  </TD><TD>".$reg['descripcion']."</TD></TR>";
+                            echo "<TR><TD>Unidad: </TD><TD>".$reg['unidad']."</TD></TR>";
                         }
-                    } else {
-                    echo "0 results";
+                                                   
+                         
+ 
+
+                        echo  "</TABLE>";
+
+
+
                     }
-                  ?>
-                </tbody>
-                  </table>
-                  </div>
+                                             
+                    
+
+                    //echo"tHIS". $numero; 
+                }else
+                {
+                    echo"tHoS";
+                }
+
+                ?>
+
+
                 </div>
-                  </div>
-                </div>
+
             </div><!-- .animated -->
         </div><!-- .content -->
-
-
-
-
 
 
         <div class="clearfix"></div>
@@ -425,7 +419,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/editarPlantel.js"></script>
 
 
     <script src="assets/js/lib/data-table/datatables.min.js"></script>

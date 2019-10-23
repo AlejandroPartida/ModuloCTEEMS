@@ -61,12 +61,14 @@
                             <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children active dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tablas</a>
+                   <li class="menu-item-has-children active dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tablas</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="tables-basic1.php">Personal</a></li>
                             <li><i class="fa fa-table"></i><a href="tables-basic2.php">Plantel</a></li>
+                            <li><i class="fa fa-table"></i><a href="tables-basic3.php">Lineamientos</a></li>
+                             <li><i class="fa fa-table"></i><a href="tables-indicadores.php">Indicadores</a></li>
+                              <li><i class="fa fa-table"></i><a href="tables-unidad.php">Unidad</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -380,6 +382,9 @@
                                                
                                                 printf('<td><button type="button" class="btn btn-light" onclick="setValuesOnModalInputs(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')" data-toggle="modal"
                                                             data-target="#myModal">Editar</button></td>', $curp, $telefono, $correo, $puesto, $plantel);
+                                                
+                                                echo "<td><button type='button' class='btn btn-light'>Eliminar</button></td>";
+                                                
                                                 echo     "</tr>";
                                             }
                                         } else {
