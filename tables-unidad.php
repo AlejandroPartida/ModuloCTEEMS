@@ -1,3 +1,5 @@
+<?php include("connection.php"); ?>
+
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -24,6 +26,9 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
@@ -55,14 +60,11 @@
                             <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
                         </ul>
                     </li>
-                  <li class="menu-item-has-children active dropdown">
+                    <li class="menu-item-has-children active dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tablas</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="tables-basic1.php">Personal</a></li>
                             <li><i class="fa fa-table"></i><a href="tables-basic2.php">Plantel</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-basic3.php">Lineamientos</a></li>
-                             <li><i class="fa fa-table"></i><a href="tables-indicadores.php">Indicadores</a></li>
-                              <li><i class="fa fa-table"></i><a href="tables-unidad.php">Unidad</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -125,8 +127,8 @@
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><img src="images/logo.png" alt="Logo"></a>
-                    <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+                    <a class="navbar-brand" href="./"><img  src="images/logo.png" alt="Logo"></a>
+                    <a class="navbar-brand hidden" href="./"><img src="images/logo.png" alt="Logo"></a>
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
                 </div>
             </div>
@@ -225,6 +227,38 @@
             </div>
         </header><!-- /header -->
         <!-- Header-->
+        <div class="container">
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Editar Unidad</h4>
+
+                        </div>
+                        <div class="modal-body">
+                            <form action="tables-unidad.php" method="post" >
+                                 <div class="input-group" style="margin-top: 4%;">
+                                    <input id="id" type="hidden" class="form-control" name="id">
+                                </div>
+                                <div class="input-group" style="margin-top: 15px;">
+                                    <input id="nombre" autocomplete="off" type="text" class="form-control"
+                                        name="nombre" placeholder="Nombre" required>
+                                </div>
+                               
+                                <button type="submit" class="btn btn-success" name="editaruni">Editar</button>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
@@ -242,7 +276,7 @@
                                 <ol class="breadcrumb text-right">
                                     <li><a href="#">Dashboard</a></li>
                                     <li><a href="#">Table</a></li>
-                                    <li class="active">Tabla de Unidades</li>
+                                    <li class="active">Data table</li>
                                 </ol>
                             </div>
                         </div>
@@ -258,71 +292,74 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Tabla de Unidades</strong>
+                                <strong class="card-title">Tabla Unidad</strong>
                             </div>
                             <div class="card-body">
-                                <?php
-                                            $servidor="127.0.0.1";
-                                              $bd="cecyte";
-                                              $user="root";
-                                              $pass="";
-                                              $dbconn=mysqli_connect($servidor, $user, $pass, $bd);
+                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre de la unidad</th>
+                                            <th>Acciones</th>
 
-// Revisamos el estado de la conexion en caso de errores.
-                                        if(!$dbconn) {
-                                        echo "Error: No se ha podido conectar a la base de datos\n";
-                                        } else {
-                                        echo "\n";
+                                        </tr>
+                                    </thead>
+                                    
+                                <tbody>
+                                    <?php
 
-                                             $sql=mysqli_query($dbconn,"SELECT * FROM unidades");
-                                             ?>
+                                        if(isset($_POST["editaruni"])) {
+                                         $id1 = $_POST["id"];
+                                         $nombreL = $_POST["nombre"];
+                                         $sqlUpdate = "UPDATE unidad SET nombre= '$nombreL' WHERE id= '$id1'";
+                                         $res = $conn->query($sqlUpdate);
 
+                                           if($res === true) {
+                                              echo("<script type='text/javascript'>
+                                                    Swal.fire
+                                                    (
+                                                        {
+                                                        title: 'Se han guardado tus cambios.',
+                                                        type: 'success',
+                                                        confirmButtonColor: '#3085d6',
+                                                        confirmButtonText: 'Aceptar'
+                                                        }
+                                                    ); </script>");
+                                            } else {
+                                            }
+                                        }
+                                        $sql = "SELECT * FROM unidad;";
+                                        $result = $conn->query($sql);
 
-                            <table id='bootstrap-data-table' class='table table-striped table-bordered'>
-                                                  <thead>
-
-                                                    <tr>
-                                                     <td>ID</td>
-                                                        <td>Nombre Unidad</td>
-                                                        <td>Consultar</td>
-                                                    </tr>
-                                                  </thead>
-                                            <?php
-                                              $name=0;
-
-
-                                                while ($reg=mysqli_fetch_array($sql))
-                                                {
-                                                  $sql2=mysqli_query($dbconn,"SELECT * FROM unidades WHERE idUnidad=$reg[0]");
-                                                  $reg2=mysqli_fetch_array($sql2);
-                                                  echo "<tr><td>".$reg['idUnidad']."</td>";
-                                                  echo "<td>".$reg['varNombre']."</td>";
-                                                  echo "<td> <input type='submit' value='Consultar' onclick='Mostrar()' $name='$reg2[0]'>
-                                                        ";
-                                                          echo "<td><button type='button' class='btn btn-light'>Eliminar</button></td>";
-                                                          echo "<td><button type='button' class='btn btn-light'>Editar</button></td>";
-                                                            echo "<td><button type='button' class='btn btn-light'>Imprimir</button></td>";
-
-                                                }
-
-
-                                              }
-                                              ?>
-                                                
-                            </div>
-
-
-
-
-                        </div>
-
-                    </div>
-
-
-
+                                        if ($result->num_rows > 0) {
+                                            // output data of each row
+                                            while($row = $result->fetch_assoc()) {
+                                                $id = $row["id"];
+                                                $nombre = $row["nombre"];
+                                                echo  "<form method='post'>\n";
+                                                echo  "<tbody>\n";
+                                                echo  "<tr>\n";
+                                                echo  "<td>" .utf8_decode($row["id"])."</td>\n";
+                                                echo  "<td>" .utf8_decode($row["nombre"]). "</td>\n";
+                                                echo  "<td>\n<button type='button' id='btnEdit' class='btn btn-light' onclick='setValuesOnModalInputs(".$id.",\"".$nombre."\");' data-toggle='modal' data-target='#myModal'>Editar</button></td>\n";
+                                                echo     "</tr>\n";
+                                                echo     "</tbody>\n";
+                                                echo     "</form>\n";
+                                            }
+                                        }
+                                    ?>
+                                </tbody>
+                  </table>
+                 <!-- <a href='pdflineamientos.php' name='imprimir' class='btn btn-primary'> Imprimir PDF <i class="fa fa-download"></i></a>-->
+                  </div>
                 </div>
+                  </div>
+                
             </div><!-- .animated -->
         </div><!-- .content -->
+
+
+
 
 
         <div class="clearfix"></div>
@@ -350,6 +387,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="assets/js/main.js"></script>
+
+    <script src="assets/js/editarUnidad.js"></script>
 
 
     <script src="assets/js/lib/data-table/datatables.min.js"></script>
