@@ -408,7 +408,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="mx-auto d-block">
-                                        <img class="rounded-circle mx-auto d-block" src="images/linea.png" alt="Card image cap" width="40%">
+                                        <img class="rounded-circle mx-auto d-block" src="images/dato.png" alt="Card image cap" width="40%">
                                     </div>
                                     <hr>
                                     <h5 class="text-sm-center mt-2 mb-1">I N D I C A D O R E S</h5>
