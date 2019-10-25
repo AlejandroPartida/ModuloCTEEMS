@@ -11,3 +11,5 @@ function clearModalInputs() {
     id.value = '';
     nombre.value = '';
 }
+
+//comentario
