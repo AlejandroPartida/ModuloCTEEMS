@@ -14,7 +14,7 @@ class PDF extends FPDF {
         $this->Ln(20);
         $this -> Cell(30, 10, '', 1, 0, 'C', 0);
         $this -> Cell(70, 10, '', 1, 0, 'C', 0);   
-        $this -> Cell(90, 10, '', 1, 1, 'C', 0);
+        $this -> Cell(90, 10,'', 1, 1, 'C', 0);
         $this->Image('PDF/Sin título-1.png', 0, 0, 210, 297);
 
     }
@@ -26,7 +26,7 @@ class PDF extends FPDF {
 }
 
 
-$sql = "SELECT * FROM lineamientos;";
+$sql = "SELECT * FROM indicadores;";
 
 $result = $conn->query($sql);
 
@@ -39,26 +39,26 @@ $cellWidth = 70;
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $id = $row["id_lineamiento"];
+        $id = $row["id"];
         $nombre = $row["nombre"];
         $descripcion = $row["descripcion"];
 
         $pdf->AddPage();
 
         $pdf->SetFont('Arial','B',18);
-        $pdf -> Write(14, 'ID de Lineamiento: ');
+        $pdf -> Write(14, 'ID de Indicador: ');
         $pdf->SetFont('Arial','',18);
-        $pdf -> Write(14, $row['id_lineamiento']);
+        $pdf -> Write(14, $id);
         $pdf -> Ln(10);
         $pdf->SetFont('Arial','B',18);
-        $pdf -> Write(14, 'Nombre de Lineamiento: ');
+        $pdf -> Write(14, 'Nombre de Indicador: ');
         $pdf->SetFont('Arial','',18);
-        $pdf -> Write(14, $row['nombre']);
+        $pdf -> Write(14, $nombre);
         $pdf -> Ln(10);
         $pdf->SetFont('Arial','B',18);
-        $pdf -> Write(14, utf8_decode('Descripción de Lineamiento: '));
+        $pdf -> Write(14, utf8_decode('Descripción de Indicador: '));
         $pdf->SetFont('Arial','',18);
-        $pdf -> Write(14, utf8_decode($row['descripcion']));
+        $pdf -> Write(14, utf8_decode($descripcion));
         //$pdf -> Cell(30, 10, $row['id_lineamiento'], 1, 0, 'C', 0);
         //while($pdf->GetStringWidth($row['nombre']) > $cellWidth){
         //    $pdf->SetFontSize($tempFontSize -= 0.1);
