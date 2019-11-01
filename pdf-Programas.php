@@ -9,7 +9,7 @@
   <body>
 
     <?php
-      require('lib/fpdf.php');
+      require('fpdf/fpdf.php');
 
       class PDF extends FPDF {
           function Header() {
