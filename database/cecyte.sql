@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-10-2019 a las 09:11:19
--- Versión del servidor: 10.1.37-MariaDB
--- Versión de PHP: 5.6.40
+-- Tiempo de generación: 01-11-2019 a las 21:24:44
+-- Versión del servidor: 10.1.13-MariaDB
+-- Versión de PHP: 5.6.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -59,7 +57,19 @@ CREATE TABLE `lineamientos` (
 --
 
 INSERT INTO `lineamientos` (`id_lineamiento`, `nombre`, `descripcion`) VALUES
-(1, 'd', 'd');
+(1, 'd', 'd'),
+(2, 'Opiniones y propuestas pedagogicas', ''),
+(3, 'Atencion a necesidades y mejoramiento de la infraestructura fisica educativa', ''),
+(4, 'Reconocimiento social a alumnos, maestros, directivos, empleados escolares y padres de familia', ''),
+(5, 'Desarrollo social, cultural y deportivo', ''),
+(6, 'Autonomia de gestion escolar', ''),
+(7, 'Seguimiento a la normalidad minima y otras condiciones favorables al funcionamiento educativo', ''),
+(8, 'Desarrollo de la cultura de la transformacion y la rendicion de cuentas', ''),
+(9, 'Proteccion civil y de seguridad en los planteles de educacion media superior', ''),
+(10, 'Impulso a la activacion fisica', ''),
+(11, 'Cuidado al medio ambiente y limpieza del entorno escolar', ''),
+(12, 'Mejorar ambiente escolar', ''),
+(13, 'Reduccion de las condicines adversas que influyan en la formacion integral del alumno', '');
 
 -- --------------------------------------------------------
 
@@ -130,6 +140,21 @@ INSERT INTO `plantel` (`clave_plantel`, `tipo_plantel`, `numero_plantel`, `nombr
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `programas`
+--
+
+CREATE TABLE `programas` (
+  `id` int(11) NOT NULL,
+  `fk_plantel` varchar(10) COLLATE utf8_spanish2_ci NOT NULL,
+  `nom_prog` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+  `objetivo` text COLLATE utf8_spanish2_ci NOT NULL,
+  `fecha_ini` date NOT NULL,
+  `fecha_fin` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `unidad`
 --
 
@@ -182,6 +207,13 @@ ALTER TABLE `plantel`
   ADD PRIMARY KEY (`clave_plantel`);
 
 --
+-- Indices de la tabla `programas`
+--
+ALTER TABLE `programas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_plantel` (`fk_plantel`);
+
+--
 -- Indices de la tabla `unidad`
 --
 ALTER TABLE `unidad`
@@ -196,25 +228,26 @@ ALTER TABLE `unidad`
 --
 ALTER TABLE `indicadores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT de la tabla `lineamientos`
 --
 ALTER TABLE `lineamientos`
-  MODIFY `id_lineamiento` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `id_lineamiento` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `logos`
 --
 ALTER TABLE `logos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
+--
+-- AUTO_INCREMENT de la tabla `programas`
+--
+ALTER TABLE `programas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `unidad`
 --
 ALTER TABLE `unidad`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- Restricciones para tablas volcadas
 --
@@ -230,7 +263,12 @@ ALTER TABLE `indicadores`
 --
 ALTER TABLE `personal`
   ADD CONSTRAINT `personal_ibfk_1` FOREIGN KEY (`fk_plantel`) REFERENCES `plantel` (`clave_plantel`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
+
+--
+-- Filtros para la tabla `programas`
+--
+ALTER TABLE `programas`
+  ADD CONSTRAINT `programas_ibfk_1` FOREIGN KEY (`fk_plantel`) REFERENCES `plantel` (`clave_plantel`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
