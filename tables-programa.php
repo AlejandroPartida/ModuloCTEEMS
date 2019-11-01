@@ -369,7 +369,7 @@
                                                 echo      "<td>".$row["fecha_fin"]. "</td>";
                                                
                                                   echo "<td>
-                                                  <form method='post' action='PDF/pdf.php'>
+                                                  <form method='post' action='pdf-Programas.php'>
                                                     <input type='hidden' value='$row[id]' name='pedido'>
                                                     <button type='submit'class='btn btn-light'>Imprimir</button>
                                                   </form>
