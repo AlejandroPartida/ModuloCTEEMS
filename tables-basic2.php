@@ -65,9 +65,6 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="tables-basic1.php">Personal</a></li>
                             <li><i class="fa fa-table"></i><a href="tables-basic2.php">Plantel</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-basic3.php">Lineamientos</a></li>
-                             <li><i class="fa fa-table"></i><a href="tables-indicadores.php">Indicadores</a></li>
-                              <li><i class="fa fa-table"></i><a href="tables-basic3.php">Unidad</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -313,11 +310,11 @@
 
                                     <thead>
                                         <tr>
-                                            <th>Clave</th>
-                                            <th>Plantel</th>
+                                            <th>id plantel</th>
+                                            <th>plantel</th>
                                             <th>Numero de plantel</th>
                                             <th>Nombre del plantel</th>
-                                            <th>Telefono</th>
+                                            <th>Numero del plantel</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -329,7 +326,7 @@
                                             $nombreU = $_POST["nombre"];
                                             $telefonoU = $_POST["telefono"];
                                             $idPlantel = $_POST["id"];
-                                            $sqlUpdate = "UPDATE plantel SET tipo_plantel = '$tipoU', numero_plantel = $numeroU, nombre_plantel = '$nombreU', telefono_plantel = $telefonoU WHERE clave_plantel = $idPlantel";
+                                            $sqlUpdate = "UPDATE plantel SET tipo_plantel = '$tipoU', numero_plantel = $numeroU, nombre_plantel = '$nombreU', telefono_plantel = $telefonoU WHERE id_plantel = $idPlantel";
                                             $res = $conn->query($sqlUpdate);
 
                                             if($res === true) {
@@ -354,29 +351,20 @@
                                             if ($result->num_rows > 0) {
                                             // output data of each row
                                             while($row = $result->fetch_assoc()) {
-                                                $id = $row["clave_plantel"];
+                                                $id = $row["id_plantel"];
                                                 $tipo = $row["tipo_plantel"];
                                                 $numero = $row["numero_plantel"];
                                                 $nombre = $row["nombre_plantel"];
                                                 $telefono = $row["telefono_plantel"];
                                                 echo  "<tbody>";
                                                 echo     "<tr>";
-                                                echo      "<td>" .$row["clave_plantel"]."</td>";
+                                                echo      "<td>" .$row["id_plantel"]."</td>";
                                                 echo      "<td>" .$row["tipo_plantel"]. "</td>";
                                                 echo      "<td>" .$row["numero_plantel"]. "</td>";
                                                 echo      "<td>".$row["nombre_plantel"]. "</td>";
                                                 echo      "<td>".$row["telefono_plantel"]. "</td>";
-                                               
-                                                  echo "<td>
-                                                  <form method='post' action='PDF/pdf.php'>
-                                                    <input type='hidden' value='$row[clave_plantel]' name='pedido'>
-                                                    <button type='submit'class='btn btn-light'>Imprimir</button>
-                                                  </form>
-                                                 </td>";
                                                 printf('<td><button type="button" class="btn btn-light" onclick="setValuesOnModalInputs(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')" data-toggle="modal"
                                                             data-target="#myModal">Editar</button></td>', $id, $tipo, $numero, $nombre, $telefono);
-                                                  echo "<td><button type='button' class='btn btn-light'>Eliminar</button></td>";
-
                                                 echo     "</tr>";
 
 
@@ -394,7 +382,6 @@
                 </div>
             </div><!-- .animated -->
         </div><!-- .content -->
-
 
 
 

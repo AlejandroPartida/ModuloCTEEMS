@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.4
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-11-2019 a las 21:24:44
--- Versión del servidor: 10.1.13-MariaDB
--- Versión de PHP: 5.6.20
+-- Tiempo de generación: 09-10-2019 a las 22:20:15
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 5.6.40
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -23,26 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `indicadores`
---
-
-CREATE TABLE `indicadores` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(30) NOT NULL,
-  `descripcion` varchar(150) NOT NULL,
-  `fk_unidad` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `indicadores`
---
-
-INSERT INTO `indicadores` (`id`, `nombre`, `descripcion`, `fk_unidad`) VALUES
-(2, 'nuevo', 'nn', 1);
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `lineamientos`
 --
 
@@ -51,25 +33,6 @@ CREATE TABLE `lineamientos` (
   `nombre` varchar(200) NOT NULL,
   `descripcion` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `lineamientos`
---
-
-INSERT INTO `lineamientos` (`id_lineamiento`, `nombre`, `descripcion`) VALUES
-(1, 'd', 'd'),
-(2, 'Opiniones y propuestas pedagogicas', ''),
-(3, 'Atencion a necesidades y mejoramiento de la infraestructura fisica educativa', ''),
-(4, 'Reconocimiento social a alumnos, maestros, directivos, empleados escolares y padres de familia', ''),
-(5, 'Desarrollo social, cultural y deportivo', ''),
-(6, 'Autonomia de gestion escolar', ''),
-(7, 'Seguimiento a la normalidad minima y otras condiciones favorables al funcionamiento educativo', ''),
-(8, 'Desarrollo de la cultura de la transformacion y la rendicion de cuentas', ''),
-(9, 'Proteccion civil y de seguridad en los planteles de educacion media superior', ''),
-(10, 'Impulso a la activacion fisica', ''),
-(11, 'Cuidado al medio ambiente y limpieza del entorno escolar', ''),
-(12, 'Mejorar ambiente escolar', ''),
-(13, 'Reduccion de las condicines adversas que influyan en la formacion integral del alumno', '');
 
 -- --------------------------------------------------------
 
@@ -137,49 +100,9 @@ CREATE TABLE `plantel` (
 INSERT INTO `plantel` (`clave_plantel`, `tipo_plantel`, `numero_plantel`, `nombre_plantel`, `telefono_plantel`) VALUES
 ('1', 'CECyTE', 19, 'Llano grande', 6188761709);
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `programas`
---
-
-CREATE TABLE `programas` (
-  `id` int(11) NOT NULL,
-  `fk_plantel` varchar(10) COLLATE utf8_spanish2_ci NOT NULL,
-  `nom_prog` varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
-  `objetivo` text COLLATE utf8_spanish2_ci NOT NULL,
-  `fecha_ini` date NOT NULL,
-  `fecha_fin` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `unidad`
---
-
-CREATE TABLE `unidad` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `unidad`
---
-
-INSERT INTO `unidad` (`id`, `nombre`) VALUES
-(1, 'número entero');
-
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `indicadores`
---
-ALTER TABLE `indicadores`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `unidad` (`fk_unidad`);
 
 --
 -- Indices de la tabla `lineamientos`
@@ -207,68 +130,31 @@ ALTER TABLE `plantel`
   ADD PRIMARY KEY (`clave_plantel`);
 
 --
--- Indices de la tabla `programas`
---
-ALTER TABLE `programas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_plantel` (`fk_plantel`);
-
---
--- Indices de la tabla `unidad`
---
-ALTER TABLE `unidad`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT de la tabla `indicadores`
---
-ALTER TABLE `indicadores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
 -- AUTO_INCREMENT de la tabla `lineamientos`
 --
 ALTER TABLE `lineamientos`
-  MODIFY `id_lineamiento` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_lineamiento` int(20) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `logos`
 --
 ALTER TABLE `logos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT de la tabla `programas`
---
-ALTER TABLE `programas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `unidad`
---
-ALTER TABLE `unidad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `indicadores`
---
-ALTER TABLE `indicadores`
-  ADD CONSTRAINT `indicadores_ibfk_1` FOREIGN KEY (`fk_unidad`) REFERENCES `unidad` (`id`);
 
 --
 -- Filtros para la tabla `personal`
 --
 ALTER TABLE `personal`
   ADD CONSTRAINT `personal_ibfk_1` FOREIGN KEY (`fk_plantel`) REFERENCES `plantel` (`clave_plantel`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `programas`
---
-ALTER TABLE `programas`
-  ADD CONSTRAINT `programas_ibfk_1` FOREIGN KEY (`fk_plantel`) REFERENCES `plantel` (`clave_plantel`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
