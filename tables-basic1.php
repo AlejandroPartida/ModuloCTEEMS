@@ -61,12 +61,14 @@
                             <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children active dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tablas</a>
+                   <li class="menu-item-has-children active dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tablas</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="tables-basic1.php">Personal</a></li>
                             <li><i class="fa fa-table"></i><a href="tables-basic2.php">Plantel</a></li>
+                            <li><i class="fa fa-table"></i><a href="tables-basic3.php">Lineamientos</a></li>
+                             <li><i class="fa fa-table"></i><a href="tables-indicadores.php">Indicadores</a></li>
+                              <li><i class="fa fa-table"></i><a href="tables-unidad.php">Unidad</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -280,7 +282,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -336,7 +338,7 @@
                                     </thead>
 
                                     <?php
-                                    
+
                                     if(isset($_POST["editar"])) {
                                         $curpU = $_POST["curp"];
                                         $telefonoU = $_POST["telefono"];
@@ -345,24 +347,20 @@
                                         $plantelU = $_POST["plantel"];
                                         $sqlUpdate = "UPDATE personal SET curp = '$curpU', tel_celular = $telefonoU, correo_electronico = '$correoU', puesto = '$puestoU' WHERE fk_plantel = $plantelU";
                                         $res = $conn->query($sqlUpdate);
-
                                         if($res === true) {
-                                            echo("<script type='text/javascript'> 
+                                            echo("<script type='text/javascript'>
                                                 Swal.fire({
                                                 title: 'Se han guardado tus cambios.',
                                                 type: 'success',
                                                 confirmButtonColor: '#3085d6',
                                                 confirmButtonText: 'Aceptar'
                                             }); </script>");
-                                        } else { 
+                                        } else {
                                             echo  mysqli_errno($conn) . ": " . mysqli_error($conn) . "\n";;
                                         }
                                     }
-
                                       $sql = "SELECT * FROM personal;";
-
                                         $result = $conn->query($sql);
-
                                         if ($result->num_rows > 0) {
                                             // output data of each row
                                             while($row = $result->fetch_assoc()) {
@@ -377,16 +375,19 @@
                                                 echo      "<td>" .$row["tel_celular"]. "</td>";
                                                 echo      "<td>" .$row["correo_electronico"]. "</td>";
                                                 echo      "<td>".$row["puesto"]. "</td>";
-                                               
+
                                                 printf('<td><button type="button" class="btn btn-light" onclick="setValuesOnModalInputs(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')" data-toggle="modal"
                                                             data-target="#myModal">Editar</button></td>', $curp, $telefono, $correo, $puesto, $plantel);
+
+                                                echo "<td><button type='button' class='btn btn-light'>Eliminar</button></td>";
+
                                                 echo     "</tr>";
                                             }
                                         } else {
                                             echo "0 results";
                                         }
-                                        
-                                        
+
+
                                     ?>
                                     </tbody>
                                 </table>
