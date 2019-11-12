@@ -46,7 +46,7 @@ if ($result->num_rows > 0) {
         $pdf->AddPage();
 
         $pdf->SetFont('Arial','B',18);
-        $pdf -> Write(14, 'ID de Indicador: ');
+        $pdf -> Write(14, 'ID de Indicador: ');	
         $pdf->SetFont('Arial','',18);
         $pdf -> Write(14, $id);
         $pdf -> Ln(10);
@@ -66,8 +66,6 @@ if ($result->num_rows > 0) {
         //$pdf -> Cell(70, 10, $row['nombre'], 1, 0, 'C', 0);
         //$pdf -> SetFontSize($fontSize);
         //$pdf -> Cell(90, 10, $row['descripcion'], 1, 1, 'C', 0);
-
-        
 
     }
 }

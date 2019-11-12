@@ -55,32 +55,6 @@
 			</script>";
 		}
 
-    }
-    if (isset($_POST['findicadores']))
-	{
-		$nombre = $_POST['nombrei'];
-        $descripcion = $_POST['descripcioni'];
-        $idU=$_POST['selectidi'];
- 
-		$sql="insert into indicadores VALUES('','$nombre','$descripcion','$idU')";
-
-        if($result=mysqli_query($conn,$sql))        
-		{
-			echo "<script type='text/javascript'>
-			document.addEventListener('DOMContentLoaded', function(event) {
-				swal('Exito!', '¡Se ha registrado exitosamente el indicador!', 'success');
-				});
-				</script>";
-		}
-		else
-		{
-			echo "<script type='text/javascript'>
-			document.addEventListener('DOMContentLoaded', function(event) {
-			swal('Error!', '¡No se registro el indicador correctamente!', 'error');
-			});
-			</script>";
-		}
-
 	}
     if(isset($_POST['fplanteles']))
     {
@@ -400,23 +374,6 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="card">
-                            <a href="#" data-toggle="modal" data-target="#indicadores">
-                                <div class="card-header">
-                                    
-                                </div>
-                                <div class="card-body">
-                                    <div class="mx-auto d-block">
-                                        <img class="rounded-circle mx-auto d-block" src="images/dato.png" alt="Card image cap" width="40%">
-                                    </div>
-                                    <hr>
-                                    <h5 class="text-sm-center mt-2 mb-1">I N D I C A D O R E S</h5>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-
                     <div class="modal fade" id="personal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
                         <div class="modal-dialog " role="document">
                             <div class="modal-content">
@@ -573,51 +530,6 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="indicadores" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
-                        <div class="modal-dialog " role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5 class="modal-title" id="smallModalLabel"> <strong>INDICADORES</strong></h5>
-                                </div>
-                                <div class="modal-body" style="padding: 30px;">
-								<form action="agregar.php" method="POST" name="findicadores">
-        										<div class="form-group">
-        											<label for="nombrei" class=" form-control-label">Nombre</label>
-        											<input required="" type="text" id="nombrei" name="nombrei" class="form-control">
-        										</div>
-        										<div class="form-group">
-        											<label for="descripcioni" class=" form-control-label">Descripción</label>
-        											<textarea name="descripcioni" id="descripcioni" rows="5" placeholder="" class="form-control"></textarea>
-        										</div>
-        									</div>
-                                            <div class="row form-group">
-                                        <div class="col col-md-4"><label for="selectidi" class=" form-control-label">Unidad de medida</label></div>
-                                        <div class="col-8 col-md-8">
-                                            <select name="selectidi" id="selectidi" class="form-control" required="">
-                                                <option value="">Selecciona...</option>
-                                                <?php
-                                                     $sql2="select * from unidad";
-                                                     $res2=mysqli_query($conn,$sql2);
-                                                     while($un=mysqli_fetch_array($res2))
-                                                     {
-                                                         echo '<option value="'.$un[0].'">'.$un[1].'</option>';
-                                                     }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                
-        									<div class="modal-footer">
-        										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        										<button type="submit" class="btn btn-primary" name="findicadores">Guardar</button>
-        							</div>
-        							</form>
-                            </div>
-                        </div>
-                    </div>
                 </div><!-- .row -->
             </div><!-- .animated -->
         </div><!-- .content -->
