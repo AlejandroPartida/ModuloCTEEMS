@@ -100,6 +100,19 @@ CREATE TABLE `plantel` (
 INSERT INTO `plantel` (`clave_plantel`, `tipo_plantel`, `numero_plantel`, `nombre_plantel`, `telefono_plantel`) VALUES
 ('1', 'CECyTE', 19, 'Llano grande', 6188761709);
 
+CREATE TABLE `sesion` (
+  `usuario` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `password` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `tipo` varchar(30) COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `sesion`
+--
+
+INSERT INTO `sesion` (`usuario`, `password`, `tipo`) VALUES
+('10DX', '12345', 'director');
+
 --
 -- Índices para tablas volcadas
 --
