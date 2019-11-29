@@ -1,3 +1,4 @@
+<?php include("connection.php"); ?>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -79,6 +80,55 @@
             </div>
         </header><!-- /header -->
         <!-- Header-->
+
+        <?php 
+        if(isset($_POST['guardar']))
+        {
+            $clave=$_POST['plantel1'];
+
+            $nombre=$_POST['nom_p'];
+            $obj=$_POST['obj_p'];
+            $fi=$_POST['fip'];
+            $ff=$_POST['ffp'];
+            
+            $sql="insert into programas(fk_plantel,nom_prog,objetivo,fecha_ini,fecha_fin) values ('$clave','$nombre','$obj','$fi','$ff')";
+            if($result=mysqli_query($conn,$sql))
+            {
+                $sql1="select id from programas where nom_prog='$nombre' and objetivo='$obj'";
+                $res1=mysqli_query($conn,$sql1);
+                $id_p=mysqli_fetch_array($res1);
+
+                
+                $ruta1 = 'Archivos/'.$_FILES['ar1']['name'];
+                move_uploaded_file($_FILES['ar1']['tmp_name'],$ruta1);
+                $sqlUpload1 ="insert into dialogo_minuta (minuta,fk_programa) VALUES ('$ruta1','$id_p[0]')";
+                if($conn->query($sqlUpload1)===false)        
+                {
+                    echo "<script type='text/javascript'>
+                        document.addEventListener('DOMContentLoaded', function(event) {
+                                swal('Error!', '¡No se registro la minuta correctamente!', 'error');
+                                });
+                                </script>";
+                }
+
+                
+                $ruta2 = 'Archivos/'.$_FILES['ar2']['name'];
+                move_uploaded_file($_FILES['ar2']['tmp_name'],$ruta2);
+                $sqlUpload2 ="insert into dialogo_comite (comite,fk_programa) VALUES ('$ruta2','$id_p[0]')";
+                if($conn->query($sqlUpload2)===false)        
+                {
+                    echo "<script type='text/javascript'>
+                        document.addEventListener('DOMContentLoaded', function(event) {
+                                swal('Error!', '¡No se registro la minuta correctamente!', 'error');
+                                });
+                                </script>";
+                }
+            }
+
+            
+        }
+
+         ?>
         
         <div class="content">
             <div class="animated fadeIn">
@@ -96,32 +146,49 @@
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody>                
+                                        <form enctype="multipart/form-data" action="programas.php" method="post" id="f1" name="f1">
                                         <tr>
                                             <th>Plantel</th>
-                                            <td><input type="text" id="plantel" name="plantel" class="form-control"></td>
+                                            <td><select id="plantel1" name="plantel1" class="form-control">
+                                                <?php 
+                                                 $sqln = "SELECT * FROM plantel;";
+
+                                                $resultn = $conn->query($sqln);
+
+                                                if ($resultn->num_rows > 0) 
+                                                {
+                                                    while($row = $resultn->fetch_assoc())
+                                                    {
+                                                        echo '<option value='.$row['clave_plantel'].'>'.$row['tipo_plantel'].' #'.$row['numero_plantel'].' '.$row['nombre_plantel'].'</option>';
+                                                    }
+                                                }else{ echo '<option value= 0> No hay planteles registrados</option>'; }
+                                                 ?>
+                                                
+                                            </select>  </td>
                                         </tr>
                                         <tr>
                                             <th>Nombre del programa</th>
-                                            <td><input type="text" id="" name="" class="form-control"></td>
+                                            <td><input type="text" id="nom_p" name="nom_p" class="form-control"></td>
                                         </tr>
                                         <tr>
                                             <th>Objetivo de las tareas a desarrollar</th>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
+                                            <td><textarea  id="obj_p" name="obj_p" class="form-control"></textarea></td>
                                         </tr>
                                         <tr>
                                             <th>Periodo</th>
                                             <td> 
                                                 <div class="row">
                                                     <div class="col-md-5"> Fecha de inicio 
-                                                        <input type="date" id="" name="" class="form-control"> 
+                                                        <input type="date" id="fip" name="fip" class="form-control"> 
                                                     </div>
                                                     <div class="col-md-5"> Fecha de termino 
-                                                        <input type="date" id="" name="" class="form-control"> 
+                                                        <input type="date" id="ffp" name="ffp" class="form-control"> 
                                                     </div>
                                                 </div>
                                             </td>
                                         </tr>
+                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -139,16 +206,14 @@
                                         <tr>
                                             <th>Auto evaluación</th>
                                             <th>Metas efectivas</th>
-                                            <th>Plan de mejora continua</th>
-                                            <th>Secuencias didácticas (docentes)</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td><textarea  id="" name="" class="form-control"></textarea></td>
                                             <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
+                                            
                                         </tr>
                                        
                                     </tbody>
@@ -165,10 +230,7 @@
                             <div class="card-body">
 
                             <div class="row">
-                                <div class="col-md-5">
-                                    <label>Nombre del programa</label>
-                                    <input type="text" id="plantel" name="plantel" class="form-control">
-                                </div>
+                                
                                 <div class="col-md-7">
                                     <label>Línea de acción</label>
                                     <input type="text" id="plantel" name="plantel" class="form-control">
@@ -204,7 +266,14 @@
                                         <tr>
                                             <td><textarea  id="" name="" class="form-control"></textarea></td>
                                             <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td></td>
+                                            <th><input type="checkbox" id="cbox1" value="first_checkbox">
+                                                <input type="checkbox" id="cbox1" value="first_checkbox">
+                                                <input type="checkbox" id="cbox1" value="first_checkbox">
+                                                <input type="checkbox" id="cbox1" value="first_checkbox">
+                                                    <input type="checkbox" id="cbox1" value="first_checkbox">
+                                                    <input type="checkbox" id="cbox1" value="first_checkbox">
+                                                <input type="checkbox" id="cbox1" value="first_checkbox"></th>
+                                            
                                         </tr>
                                        <tr>
                                             <td><textarea  id="" name="" class="form-control"></textarea></td>
@@ -224,10 +293,7 @@
                                     </tbody>
                                 </table>
                                 <div class="row">
-                                <div class="col-md-5">
-                                    <label>Nombre del programa</label>
-                                    <input type="text" id="plantel" name="plantel" class="form-control">
-                                </div>
+                                
                                 <div class="col-md-7">
                                     <label>Línea de acción</label>
                                     <input type="text" id="plantel" name="plantel" class="form-control">
@@ -284,7 +350,7 @@
                             </div>
                         </div>
                     </div><!--end C) -->
-                    
+
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header  text-center">
@@ -296,8 +362,8 @@
                                         <b><label for="file-multiple-input" class=" form-control-label">
                                         Recopilación de trabajos realizados en distintos momentos</label></b>
                                     </div>
-                                    <div class="col-12 col-md-6">
-                                        <input type="file" id="" name="" multiple="" class="form-control-file">
+                                    <div class="col-12 col-md-6" id="ar2">
+                                        <input type="file" id="ar2" name="ar2" multiple="" class="form-control-file" form="f1">
                                     </div>
                                 </div>
                             </div>
@@ -315,14 +381,14 @@
                                         <b><label for="file-multiple-input" class=" form-control-label">
                                         Minuta de reunión</label></b>
                                     </div>
-                                    <div class="col-12 col-md-6">
-                                        <input type="file" id="" name="" class="form-control-file">
+                                    <div class="col-12 col-md-6" id="ar1">
+                                        <input type="file" id="ar1" name="ar1" class="form-control-file" form="f1">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div><!--end E) -->
-
+                    
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header  text-center">
@@ -353,9 +419,9 @@
                     <div class="col-md-12 text-center">
                         <button type="button" class="btn btn-outline-secondary btn-lg active">Borrar</button>
                         <button type="button" class="btn btn-outline-danger btn-lg active">Cancelar</button>
-                        <button type="button" class="btn btn-outline-primary btn-lg active">Guardar</button>
+                        <button type="submit" class="btn btn-outline-primary btn-lg active" id="guardar" name="guardar" form="f1">Guardar</button>
                     </div>
-
+</form>
         </div><!-- .animated -->
     </div><!-- .content -->
 
