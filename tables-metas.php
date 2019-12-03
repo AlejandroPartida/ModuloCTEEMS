@@ -368,7 +368,7 @@
                                             
                                                
                                                   echo "<td>
-                                                  <form method='post' action='../pdf-metas.php'>
+                                                  <form method='post' action='pdf-metas.php'>
                                                     <input type='hidden' value='$row[id]' name='pedido'>
                                                     <button type='submit'class='btn btn-light'>Imprimir</button>
                                                   </form>
