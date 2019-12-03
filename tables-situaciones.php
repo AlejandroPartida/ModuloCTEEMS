@@ -368,7 +368,7 @@
                                             
                                                
                                                   echo "<td>
-                                                  <form method='post' action='../pdf-situacion.php'>
+                                                  <form method='post' action='pdf-situacion.php'>
                                                     <input type='hidden' value='$row[id]' name='pedidoSituacion'>
                                                     <button type='submit'class='btn btn-light'>Imprimir</button>
                                                   </form>
