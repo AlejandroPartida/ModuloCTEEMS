@@ -1,7 +1,10 @@
 <?php include("connection.php"); ?>
-<!DOCTYPE HTML>
 
-
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,8 +19,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
@@ -31,7 +33,6 @@
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
 </head>
-
 <body>
     <!-- Left Panel -->
 
@@ -43,7 +44,7 @@
                     <li>
                         <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-title">UI elements</li><!-- /.menu-title -->
+                    <li class="menu-title">Opcion1</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Components</a>
@@ -61,23 +62,8 @@
                             <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
                         </ul>
                     </li>
-                   <li class="menu-item-has-children active dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tablas</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="tables-basic1.php">Personal</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-basic2.php">Plantel</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-basic3.php">Lineamientos</a></li>
-                             <li><i class="fa fa-table"></i><a href="tables-indicadores.php">Indicadores</a></li>
-                              <li><i class="fa fa-table"></i><a href="tables-unidad.php">Unidad</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
-                        </ul>
+                    <li>
+                        <a href="#"> <i class="menu-icon fa fa-graduation-cap"></i>Planteles</a>
                     </li>
 
                     <li class="menu-title">Icons</li><!-- /.menu-title -->
@@ -153,15 +139,13 @@
                         <button class="search-trigger"><i class="fa fa-search"></i></button>
                         <div class="form-inline">
                             <form class="search-form">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..."
-                                    aria-label="Search">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
                                 <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
                             </form>
                         </div>
 
                         <div class="dropdown for-notification">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
                                 <span class="count bg-danger">3</span>
                             </button>
@@ -183,8 +167,7 @@
                         </div>
 
                         <div class="dropdown for-message">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-envelope"></i>
                                 <span class="count bg-primary">4</span>
                             </button>
@@ -227,16 +210,14 @@
                     </div>
 
                     <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
+                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
                         </a>
 
                         <div class="user-menu dropdown-menu">
                             <a class="nav-link" href="#"><i class="fa fa-user"></i>My Profile</a>
 
-                            <a class="nav-link" href="#"><i class="fa fa-bell-o"></i>Notifications <span
-                                    class="count">13</span></a>
+                            <a class="nav-link" href="#"><i class="fa fa-bell-o"></i>Notifications <span class="count">13</span></a>
 
                             <a class="nav-link" href="#"><i class="fa fa-cog"></i>Settings</a>
 
@@ -253,30 +234,30 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Editar personal</h4>
+                            <h4 class="modal-title">Editar plantel</h4>
 
                         </div>
                         <div class="modal-body">
-                            <form action="tables-basic1.php" method="post" >
+                            <form action="tables-basic2.php" method="post" >
                                 <div class="input-group" style="margin-top: 15px;">
-                                    <input id="curp" type="text" class="form-control" name="curp" placeholder="CURP" required>
+                                    <input id="tipo" type="text" class="form-control" name="tipo" placeholder="Tipo de Plantel" required>
                                 </div>
                                 <div class="input-group" style="margin-top: 15px;">
-                                    <input id="telefono" autocomplete="off" type="text" class="form-control"
-                                        name="telefono" placeholder="Teléfono" required></div>
+                                    <input id="numero" autocomplete="off" type="text" class="form-control"
+                                        name="numero" placeholder="Número de Plantel" required></div>
 
                                 <div class="input-group" style="margin-top: 4%;">
-                                    <input id="correo" type="text" class="form-control" name="correo"
-                                        placeholder="Correo electrónico" required>
+                                    <input id="nombre" type="text" class="form-control" name="nombre"
+                                        placeholder="Nombre de Plantel" required>
                                 </div>
                                 <div class="input-group" style="margin-top: 4%;">
-                                    <input id="puesto" type="text" class="form-control" name="puesto"
-                                        placeholder="Puesto" required>
+                                    <input id="telefono" type="text" class="form-control" name="telefono"
+                                        placeholder="Teléfono de Plantel" required>
                                 </div>
                                 <div class="input-group" style="margin-top: 4%;">
-                                    <input id="plantel" type="hidden" class="form-control" name="plantel">
+                                    <input id="id" type="hidden" class="form-control" name="id">
                                 </div>
-                                <button type="submit" class="btn btn-success" name="editar" style="margin-top: 10%;">Editar</button>
+                                <button type="submit" class="btn btn-success" name="editar">Editar</button>
                             </form>
                         </div>
 
@@ -288,6 +269,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
@@ -321,7 +303,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Tabla Personal</strong>
+                                <strong class="card-title">Tabla plantel</strong>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -329,74 +311,80 @@
 
                                     <thead>
                                         <tr>
-                                            <th>CURP</th>
+                                            <th>Clave</th>
+                                            <th>Plantel</th>
+                                            <th>Número de plantel</th>
+                                            <th>Nombre del plantel</th>
                                             <th>Teléfono</th>
-                                            <th>Correo Electrónico</th>
-                                            <th>Puesto</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
 
                                     <?php
-
-                                    if(isset($_POST["editar"])) {
-                                        $curpU = $_POST["curp"];
-                                        $telefonoU = $_POST["telefono"];
-                                        $correoU = $_POST["correo"];
-                                        $puestoU = $_POST["puesto"];
-                                        $plantelU = $_POST["plantel"];
-                                        $sqlUpdate = "UPDATE personal SET curp = '$curpU', tel_celular = $telefonoU, correo_electronico = '$correoU', puesto = '$puestoU' WHERE fk_plantel = $plantelU";
-                                        $res = $conn->query($sqlUpdate);
-                                        if($res === true) {
-                                            echo("<script type='text/javascript'>
-                                                Swal.fire({
-                                                title: 'Se han guardado tus cambios.',
-                                                type: 'success',
-                                                confirmButtonColor: '#3085d6',
-                                                confirmButtonText: 'Aceptar'
-                                            }); </script>");
-                                        } else {
-                                            echo  mysqli_errno($conn) . ": " . mysqli_error($conn) . "\n";;
+                                        if(isset($_POST["editar"])) {
+                                            $tipoU = $_POST["tipo"];
+                                            $numeroU = $_POST["numero"];
+                                            $nombreU = $_POST["nombre"];
+                                            $telefonoU = $_POST["telefono"];
+                                            $idPlantel = $_POST["id"];
+                                            $sqlUpdate = "UPDATE plantel SET tipo_plantel = '$tipoU', numero_plantel = $numeroU, nombre_plantel = '$nombreU', telefono_plantel = $telefonoU WHERE clave_plantel = $idPlantel";
+                                            $res = $conn->query($sqlUpdate);
+                                            if($res === true) {
+                                                echo("<script type='text/javascript'>
+                                                    Swal.fire({
+                                                    title: 'Se han guardado tus cambios.',
+                                                    type: 'success',
+                                                    confirmButtonColor: '#3085d6',
+                                                    confirmButtonText: 'Aceptar'
+                                                }); </script>");
+                                            } else {
+                                                echo  mysqli_errno($conn) . ": " . mysqli_error($conn) . "\n";;
+                                            }
                                         }
-                                    }
-                                      $sql = "SELECT * FROM personal;";
-                                        $result = $conn->query($sql);
-                                        if ($result->num_rows > 0) {
+
+                                        $sql = "SELECT * FROM plantel;";
+                                            $result = $conn->query($sql);
+                                            if ($result->num_rows > 0) {
                                             // output data of each row
                                             while($row = $result->fetch_assoc()) {
-                                                $curp = $row["curp"];
-                                                $telefono = $row["tel_celular"];
-                                                $correo = $row["correo_electronico"];
-                                                $puesto = $row["puesto"];
-                                                $plantel = $row["fk_plantel"];
+                                                $id = $row["clave_plantel"];
+                                                $tipo = $row["tipo_plantel"];
+                                                $numero = $row["numero_plantel"];
+                                                $nombre = $row["nombre_plantel"];
+                                                $telefono = $row["telefono_plantel"];
                                                 echo  "<tbody>";
                                                 echo     "<tr>";
-                                                echo      "<td>" .$row["curp"]."</td>";
-                                                echo      "<td>" .$row["tel_celular"]. "</td>";
-                                                echo      "<td>" .$row["correo_electronico"]. "</td>";
-                                                echo      "<td>".$row["puesto"]. "</td>";
+                                                echo      "<td>" .$row["clave_plantel"]."</td>";
+                                                echo      "<td>" .$row["tipo_plantel"]. "</td>";
+                                                echo      "<td>" .$row["numero_plantel"]. "</td>";
+                                                echo      "<td>".$row["nombre_plantel"]. "</td>";
+                                                echo      "<td>".$row["telefono_plantel"]. "</td>";
 
-                                                printf('<td><button type="button" class="btn btn-light" onclick="setValuesOnModalInputs(\'%s\', \'%s\', \'%s\', \'%s\', \'%s\')" data-toggle="modal"
-                                                            data-target="#myModal">Editar</button></td>', $curp, $telefono, $correo, $puesto, $plantel);
-
-                                                echo "<td><button type='button' class='btn btn-light'>Eliminar</button></td>";
-
+                                                /*  echo "<td>
+                                                  <form method='post' action='PDF/pdf.php'>
+                                                    <input type='hidden' value='$row[clave_plantel]' name='pedido'>
+                                                    <button type='submit'class='btn btn-light'>Imprimir</button>
+                                                  </form>
+                                                 </td>";*/
+                                                printf('<td><a href="plantel.php"><button type="button" class="btn btn-light" onclick="setCookie(\'%s\',\'%s\',\'%u\')">Ver programas del plantel</button></a></td>', "idPlantel", $id, 1);
                                                 echo     "</tr>";
-                                            }
-                                        } else {
-                                            echo "0 results";
-                                        }
-
-
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                        }
+                    } else {
+                    echo "0 results";
+                    }
+                  ?>
+                </tbody>
+                  </table>
+                  </div>
+                </div>
+                  </div>
                 </div>
             </div><!-- .animated -->
         </div><!-- .content -->
+
+
+
+
 
 
         <div class="clearfix"></div>
@@ -424,7 +412,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/editarPersonal.js"></script>
+    <script src="assets/js/plantelId.js"></script>
+    <script src="assets/js/editarPlantel.js"></script>
+
 
     <script src="assets/js/lib/data-table/datatables.min.js"></script>
     <script src="assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
@@ -439,12 +429,22 @@
 
 
     <script type="text/javascript">
-    $(document).ready(function() {
-        $('#bootstrap-data-table-export').DataTable();
-    });
-    </script>
+        $(document).ready(function() {
+          $('#bootstrap-data-table-export').DataTable();
+      } );
+  </script>
+
+  <<script>
+   function setCookie(c_name,value,expiredays)
+        {
+            var exdate=new Date()
+            exdate.setDate(exdate.getDate()+expiredays)
+            document.cookie=c_name+ "=" +escape(value)+
+            ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+    		location.reload()
+        }
+  </script>
 
 
 </body>
-
 </html>
