@@ -419,10 +419,10 @@
               
             if(isset($_POST['visto'])){
                     $numero=$_POST['visto'];
-                    $servidor="localhost";
-                    $bd="cecyte";
-                    $user="root";
-                    $pass="";
+                    $servidor="remotemysql.com";
+                    $bd="J7F7S1NVFx";
+                    $user="J7F7S1NVFx";
+                    $pass="aoet0WesuU";
                     $dbconn=mysqli_connect($servidor, $user, $pass, $bd);
  
                     if(!$dbconn) {
