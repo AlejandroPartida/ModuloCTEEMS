@@ -90,7 +90,20 @@
             $obj=$_POST['obj_p'];
             $fi=$_POST['fip'];
             $ff=$_POST['ffp'];
-            
+            $retro=$_POST['retro'];
+            $trans=$_POST['trans'];
+            $auto=$_POST['autoe'];
+            $metas=$_POST['metase'];
+            $id_l=$_POST['linea1'];
+            $act1=$_POST['act1'];
+            $act2=$_POST['act2'];
+            $resp1=$_POST['resp1'];
+            $resp2=$_POST['resp2'];
+            $mei1=$_POST['mesIn1'];
+            $mei2=$_POST['mesIn2'];
+            $mef1=$_POST['mesFi1'];
+            $mef2=$_POST['mesFi2'];
+
             $sql="insert into programas(fk_plantel,nom_prog,objetivo,fecha_ini,fecha_fin) values ('$clave','$nombre','$obj','$fi','$ff')";
             if($result=mysqli_query($conn,$sql))
             {
@@ -123,6 +136,37 @@
                                 });
                                 </script>";
                 }
+
+                $sqlr="insert into retroalimentacion values ('','$id_p[0]','$retro')";
+            if($resultr=mysqli_query($conn,$sqlr))
+            {
+
+                 $sqlt="insert into transitorios values ('','$id_p[0]','$trans')";
+                if($resultt=mysqli_query($conn,$sqlt))
+                {
+                    $sqlf="insert into planeacion values ('','$id_p[0]','$auto','$metas')";
+                    if($resultf=mysqli_query($conn,$sqlf))
+                    {
+                        
+                        $sqls1="insert into seguimiento values ('','$id_p[0]','$act1','$resp1','$mei1','$mef1','$id_l')";
+                        if($results1=mysqli_query($conn,$sqls1))
+                        {
+                            
+                            $sqls2="insert into seguimiento values ('','$id_p[0]','$act2','$resp2','$mei2','$mef2','$id_l')";
+                            $results2=mysqli_query($conn,$sqls2);
+                            
+                            echo "<script type='text/javascript'>
+                        document.addEventListener('DOMContentLoaded', function(event) {
+                                swal('Listo!', '¡El registro se completo exitosamente!', 'success');
+                                });
+                                </script>";
+                        }
+                    }
+
+                }
+
+
+            }
             }
 
             
@@ -169,21 +213,21 @@
                                         </tr>
                                         <tr>
                                             <th>Nombre del programa</th>
-                                            <td><input type="text" id="nom_p" name="nom_p" class="form-control"></td>
+                                            <td><input type="text" id="nom_p" name="nom_p" class="form-control" required=""></td>
                                         </tr>
                                         <tr>
                                             <th>Objetivo de las tareas a desarrollar</th>
-                                            <td><textarea  id="obj_p" name="obj_p" class="form-control"></textarea></td>
+                                            <td><textarea  id="obj_p" name="obj_p" class="form-control" required=""></textarea></td>
                                         </tr>
                                         <tr>
                                             <th>Periodo</th>
                                             <td> 
                                                 <div class="row">
                                                     <div class="col-md-5"> Fecha de inicio 
-                                                        <input type="date" id="fip" name="fip" class="form-control"> 
+                                                        <input type="date" id="fip" name="fip" class="form-control" required=""> 
                                                     </div>
                                                     <div class="col-md-5"> Fecha de termino 
-                                                        <input type="date" id="ffp" name="ffp" class="form-control"> 
+                                                        <input type="date" id="ffp" name="ffp" class="form-control" required=""> 
                                                     </div>
                                                 </div>
                                             </td>
@@ -211,8 +255,8 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
+                                            <td><textarea  id="autoe" name="autoe" class="form-control" required=""></textarea></td>
+                                            <td><textarea  id="metase" name="metase" class="form-control" required=""></textarea></td>
                                             
                                         </tr>
                                        
@@ -233,7 +277,22 @@
                                 
                                 <div class="col-md-7">
                                     <label>Línea de acción</label>
-                                    <input type="text" id="plantel" name="plantel" class="form-control">
+                                    <select id="linea1" name="linea1" class="form-control" required="">
+                                                <?php 
+                                                 $sqll = "SELECT * FROM lineamientos;";
+
+                                                $resultl = $conn->query($sqll);
+
+                                                if ($resultl->num_rows > 0) 
+                                                {
+                                                    while($rowl = $resultl->fetch_assoc())
+                                                    {
+                                                        echo '<option value='.$rowl['id_lineamiento'].'>'.$rowl['nombre'].'</option>';
+                                                    }
+                                                }else{ echo '<option value= 0> No hay lineaminetos registrados</option>'; }
+                                                 ?>
+                                                
+                                            </select>
                                 </div>
                             </div>
                                 
@@ -248,15 +307,7 @@
                                             <th class="text-center">Ciclo escolar
                                                 <table id="" class="table table-striped table-bordered">
                                                    <thead>
-                                                    <tr>
-                                                        <th>Enero</th>
-                                                        <th>Febrero</th>
-                                                        <th>Marzo</th>
-                                                        <th>Abril</th>
-                                                        <th>Mayo</th>
-                                                        <th>Junio</th>
-                                                        <th>Julio</th>
-                                                    </tr>
+                                                    
                                                    </thead> 
                                                </table>
                                                 </th>
@@ -264,89 +315,83 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <th><input type="checkbox" id="cbox1" value="first_checkbox">
-                                                <input type="checkbox" id="cbox1" value="first_checkbox">
-                                                <input type="checkbox" id="cbox1" value="first_checkbox">
-                                                <input type="checkbox" id="cbox1" value="first_checkbox">
-                                                    <input type="checkbox" id="cbox1" value="first_checkbox">
-                                                    <input type="checkbox" id="cbox1" value="first_checkbox">
-                                                <input type="checkbox" id="cbox1" value="first_checkbox"></th>
+                                            <td><textarea  id="act1" name="act1" class="form-control" required=""></textarea></td>
+                                            <td><textarea  id="resp1" name="resp1" class="form-control" required=""></textarea></td>
+                                            <th><select id="mesIn1" name="mesIn1" class="form-control" required="">
+                                               <option value="">Mes Inicial</option>
+                                               <option value="Enero">Enero</option>
+                                               <option value="Febrero">Febrero</option>
+                                               <option value="Marzo">Marzo</option>
+                                               <option value="Abril">Abril</option>
+                                               <option value="Mayo">Mayo</option>
+                                               <option value="Junio">Junio</option>
+                                               <option value="Julio">Julio</option>
+                                               <option value="Agosto">Agosto</option>
+                                               <option value="Septiembre">Septiembre</option>
+                                               <option value="Octubre">Octubre</option>
+                                               <option value="Noviembre">Noviembre</option>
+                                               <option value="Diciembre">Diciembre</option>
+                                            </select> 
+
+                                            <select id="mesFi1" name="mesFi1" class="form-control" required="">
+                                               <option value="">Mes Final</option>
+                                               <option value="Enero">Enero</option>
+                                               <option value="Febrero">Febrero</option>
+                                               <option value="Marzo">Marzo</option>
+                                               <option value="Abril">Abril</option>
+                                               <option value="Mayo">Mayo</option>
+                                               <option value="Junio">Junio</option>
+                                               <option value="Julio">Julio</option>
+                                               <option value="Agosto">Agosto</option>
+                                               <option value="Septiembre">Septiembre</option>
+                                               <option value="Octubre">Octubre</option>
+                                               <option value="Noviembre">Noviembre</option>
+                                               <option value="Diciembre">Diciembre</option>
+                                            </select>
+                                            </th>
                                             
                                         </tr>
                                        <tr>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="row">
-                                
-                                <div class="col-md-7">
-                                    <label>Línea de acción</label>
-                                    <input type="text" id="plantel" name="plantel" class="form-control">
-                                </div>
-                            </div>
-                                
-                            <br>    
+                                           <td><textarea  id="act2" name="act2" class="form-control" required=""></textarea></td>
+                                            <td><textarea  id="resp2" name="resp2" class="form-control" required=""></textarea></td>
+                                            <th><select id="mesIn2" name="mesIn2" class="form-control" required="">
+                                               <option value="">Mes Inicial</option>
+                                               <option value="Enero">Enero</option>
+                                               <option value="Febrero">Febrero</option>
+                                               <option value="Marzo">Marzo</option>
+                                               <option value="Abril">Abril</option>
+                                               <option value="Mayo">Mayo</option>
+                                               <option value="Junio">Junio</option>
+                                               <option value="Julio">Julio</option>
+                                               <option value="Agosto">Agosto</option>
+                                               <option value="Septiembre">Septiembre</option>
+                                               <option value="Octubre">Octubre</option>
+                                               <option value="Noviembre">Noviembre</option>
+                                               <option value="Diciembre">Diciembre</option>
+                                            </select> 
 
-                                <table id="seguimiento" class="table table-striped table-bordered">
-                                    <thead>
-                                        
-                                        <tr>
-                                            <th style="width: 350px;">Actividades</th>
-                                            <th style="width: 250px;">Responsables</th>
-                                            <th class="text-center">Ciclo escolar
-                                                <table id="" class="table table-striped table-bordered">
-                                                   <thead>
-                                                    <tr>
-                                                        <th>Agosto</th>
-                                                        <th>Septiembre</th>
-                                                        <th>Octubre</th>
-                                                        <th>Noviembre</th>
-                                                        <th>Diciembre</th>
-                                                        <th>Enero</th>
-                                                    </tr>
-                                                   </thead> 
-                                               </table>
-                                                </th>
+                                            <select id="mesFi2" name="mesFi2" class="form-control" required="">
+                                               <option value="">Mes Final</option>
+                                               <option value="Enero">Enero</option>
+                                               <option value="Febrero">Febrero</option>
+                                               <option value="Marzo">Marzo</option>
+                                               <option value="Abril">Abril</option>
+                                               <option value="Mayo">Mayo</option>
+                                               <option value="Junio">Junio</option>
+                                               <option value="Julio">Julio</option>
+                                               <option value="Agosto">Agosto</option>
+                                               <option value="Septiembre">Septiembre</option>
+                                               <option value="Octubre">Octubre</option>
+                                               <option value="Noviembre">Noviembre</option>
+                                               <option value="Diciembre">Diciembre</option>
+                                            </select>
+                                            </th>
+                                            
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td></td>
-                                        </tr>
-                                       <tr>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td><textarea  id="" name="" class="form-control"></textarea></td>
-                                            <td></td>
-                                        </tr>
+                                       
                                     </tbody>
                                 </table>
+                                
                             </div>
                         </div>
                     </div><!--end C) -->
@@ -363,7 +408,7 @@
                                         Recopilación de trabajos realizados en distintos momentos</label></b>
                                     </div>
                                     <div class="col-12 col-md-6" id="ar2">
-                                        <input type="file" id="ar2" name="ar2" multiple="" class="form-control-file" form="f1">
+                                        <input type="file" id="ar2" name="ar2" multiple="" class="form-control-file" form="f1" required="">
                                     </div>
                                 </div>
                             </div>
@@ -382,7 +427,7 @@
                                         Minuta de reunión</label></b>
                                     </div>
                                     <div class="col-12 col-md-6" id="ar1">
-                                        <input type="file" id="ar1" name="ar1" class="form-control-file" form="f1">
+                                        <input type="file" id="ar1" name="ar1" class="form-control-file" form="f1" required="">
                                     </div>
                                 </div>
                             </div>
@@ -396,7 +441,7 @@
                             </div>
                             <div class="card-body">
                                <div class=" form-group">
-                                    <textarea  id="" name="" class="form-control"></textarea>
+                                    <textarea  id="retro" name="retro" class="form-control" required=""></textarea>
                                 </div>
                             </div>
                         </div>
@@ -410,14 +455,14 @@
                             <div class="card-body">
                                <div class=" form-group">
                                 <label> Situaciones no previstas resueltas por el consejo</label>
-                                    <textarea  id="" name="" class="form-control"></textarea>
+                                    <textarea  id="trans" name="trans" class="form-control" required=""></textarea>
                                 </div>
                             </div>
                         </div>
                     </div><!--end G) -->
 
                     <div class="col-md-12 text-center">
-                        <button type="button" class="btn btn-outline-secondary btn-lg active">Borrar</button>
+                        <button type="reset" class="btn btn-outline-secondary btn-lg active">Borrar</button>
                         <button type="button" class="btn btn-outline-danger btn-lg active">Cancelar</button>
                         <button type="submit" class="btn btn-outline-primary btn-lg active" id="guardar" name="guardar" form="f1">Guardar</button>
                     </div>
