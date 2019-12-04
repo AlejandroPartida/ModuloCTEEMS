@@ -1,3 +1,5 @@
+<?php include("connection.php"); ?>
+
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -24,6 +26,9 @@
     <link rel="stylesheet" href="assets/css/style.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
@@ -55,7 +60,8 @@
                             <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
                         </ul>
                     </li>
-             <li class="menu-item-has-children active dropdown">
+                   <li class="menu-item-has-children dropdown">
+                          <li class="menu-item-has-children active dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tablas</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="tables-basic1.php">Personal</a></li>
@@ -63,15 +69,25 @@
                             <li><i class="fa fa-table"></i><a href="tables-basic3.php">Lineamientos</a></li>
                              <li><i class="fa fa-table"></i><a href="tables-indicadores.php">Indicadores</a></li>
                               <li><i class="fa fa-table"></i><a href="tables-unidad.php">Unidad</a></li>
+                            <li><i class="fa fa-table"></i><a href="tables-situaciones.php">Situaciones</a></li>
+                            <li><i class="fa fa-table"></i><a href="tables-retroalimentacion.php">Retroalimentacion</a></li>
+                            <li><i class="fa fa-table"></i><a href="tables-metas.php">Metas Efectivas</a></li>
+                             <li><i class="fa fa-table"></i><a href="tables-plan.php">Plan de Mejora</a></li>
                         </ul>
                     </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
+        
+                           <li class="menu-item-has-children active dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Agregar</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
+                            <li><i class="fa fa-table"></i><a href="addRetroalimentacion.php">Retroalimentacion</a></li>
+                            <li><i class="fa fa-table"></i><a href="addSituaciones.php">Situaciones</a></li>
+                            <li><i class="fa fa-table"></i><a href="addMetas.php">Metas</a></li>
+                             <li><i class="fa fa-table"></i><a href="addPlan.php">Plan de Mejora</a></li>
+                              <li><i class="fa fa-table"></i><a href="agregar-didacticas.php">Secuencias Didacticas</a></li>
                         </ul>
                     </li>
+                    </li>
+
 
                     <li class="menu-title">Icons</li><!-- /.menu-title -->
 
@@ -225,6 +241,42 @@
             </div>
         </header><!-- /header -->
         <!-- Header-->
+        <div class="container">
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Editar Metas Efectivas</h4>
+
+                        </div>
+                        <div class="modal-body">
+                            <form action="tables-metas.php" method="post" >
+                                <div class="input-group" style="margin-top: 15px;">
+                                    <input id="id" type="text" readonly="readonly" class="form-control" name="id" placeholder="Tipo de Plantel" required>
+                                </div>
+                                <div class="input-group" style="margin-top: 15px;">
+                                    <input id="id_programa" readonly="readonly"  autocomplete="off" type="text" class="form-control"
+                                        name="id_programa" placeholder="Número de Plantel" required></div>
+
+                                <div class="input-group" style="margin-top: 4%;">
+                                    <textarea id="descri" type="text" class="form-control" name="descri"
+                                 required></textarea>
+                                </div>
+                               
+                                <button type="submit" class="btn btn-success" name="editar">Editar</button>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
@@ -258,74 +310,96 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Data Table</strong>
+                                <strong class="card-title">Tabla plantel</strong>
                             </div>
                             <div class="card-body">
-                                <?php
+                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
 
-                                            $servidor="127.0.0.1";
-                                              $bd="cecyte";
-                                              $user="root";
-                                              $pass="";
-                                              $dbconn=mysqli_connect($servidor, $user, $pass, $bd);
- 
-// Revisamos el estado de la conexion en caso de errores. 
-                                        if(!$dbconn) {
-                                        echo "Error: No se ha podido conectar a la base de datos\n";
-                                        } else {
-                                        echo "\n";
 
-                                             $sql=mysqli_query($dbconn,"SELECT * FROM indicador");
-                                             ?>
-                               
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>programa</th>
+                                            <th>descripcion</th>
+                                         
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
 
-                            <table id='bootstrap-data-table' class='table table-striped table-bordered'>
-                                                  <thead>
+                                    <?php
+                                        if(isset($_POST["editar"])) {
+                                            $id = $_POST["id"];
+                                            $id_programa = $_POST["id_programa"];
+                                            $descri = $_POST["descri"];
+                                      
+                                            $sqlUpdate = "UPDATE metas_efectivas SET descripcion = '$descri' WHERE id = $id";
+                                            $res = $conn->query($sqlUpdate);
 
-                                                    <tr>
-                                                     <td>Clave</td>
-                                                        <td>Nombre</td>
-                                                       <td>Descripcion</td>
-                                                        <td>Unidad</td>
-                                                    
-                                                        <td>Reporte</td>
-                                                    </tr>
-                                                  </thead>
-                                            <?php
-                                                while ($reg=mysqli_fetch_array($sql))
-                                                {
-                                                  echo "<tr><td>".$reg['id_indicador']."</td>";
-                                                  echo "<td>".$reg['nombre']."</td>";
-                                                  echo "<td>".$reg['descripcion']."</td>";
-                                                  echo"<td>".$reg['unidad']."</td>";
-                                    
+                                            if($res === true) {
+                                                echo("<script type='text/javascript'> 
+                                                    Swal.fire({
+                                                    title: 'Se han guardado tus cambios.',
+                                                    type: 'success',
+                                                    confirmButtonColor: '#3085d6',
+                                                    confirmButtonText: 'Aceptar'
+                                                }); </script>");
+                                            } else { 
+                                                echo  mysqli_errno($conn) . ": " . mysqli_error($conn) . "\n";;
+                                            }
+                                        }
+
+
+                                        
+                                        $sql = "SELECT * FROM metas_efectivas;";
+
+                                            $result = $conn->query($sql);
+
+                                            if ($result->num_rows > 0) {
+                                            // output data of each row
+                                            while($row = $result->fetch_assoc()) {
+                                                $id = $row["id"];
+                                                $id_programa = $row["id_programa"];
+                                                $descri = $row["descripcion"];
+                                              
+                                                echo     "<tr>";
+                                                echo      "<td>" .$row["id"]."</td>";
+                                                echo      "<td>" .$row["id_programa"]. "</td>";
+                                                echo      "<td>" .$row["descripcion"]. "</td>";
+                                            
+                                               
+                                                  echo "<td>
+                                                  <form method='post' action='pdf-metas.php'>
+                                                    <input type='hidden' value='$row[id]' name='pedido'>
+                                                    <button type='submit'class='btn btn-light'>Imprimir</button>
+                                                  </form>
+                                                 </td>";
                                                  echo "<td>
-                                                  <form method='post' action='tables-indicadores.php'>
+                                                  <form method='post' action='tables-metas.php'>
                                 
-                                                    <input type='hidden' value='$reg[id_indicador]' name='visto'>
+                                                    <input type='hidden' value='$row[id]' name='visto'>
                                                     <button type='submit' class='btn btn-light'>Ver</button>
 
                                                   </form>
-
-
-                                                 
                                                  </td>";
-                                                   echo "<td><button type='button' class='btn btn-light'>Eliminar</button></td>";
-                                                     echo "<td><button type='button' class='btn btn-light'>Editar</button></td>";
-                                                       echo "<td><button type='button' class='btn btn-light'>Imprimir</button></td>";
+                                                printf('<td><button type="button" class="btn btn-light" onclick="setValuesOnModalInputs(\'%s\', \'%s\', \'%s\')" data-toggle="modal"
+                                                            data-target="#myModal">Editar</button></td>', $id, $id_programa, $descri);
                                                   
-                                                }
-                                              }
-                                                echo "</tr>     </table>";
-                                        ?>
-                            </div>
-                        </div>
-                    </div>
+
+                                                echo     "</tr>";
 
 
+
+                        }
+                    } else {
+                    echo "0 results";
+                    }
+                  ?>
+                </tbody>
+                  </table>
+                  </div>
                 </div>
-
-                <script language="JavaScript">
+                  </div>
+                  <script language="JavaScript">
 
                 function muestra_oculta(id){
                 if (document.getElementById){ 
@@ -343,7 +417,7 @@
                
                 
               
-                if($_POST){
+                  if(isset($_POST['visto'])){
                     $numero=$_POST['visto'];
                     $servidor="remotemysql.com";
                     $bd="J7F7S1NVFx";
@@ -356,42 +430,32 @@
                         } else {
                         echo "\n";
 
-                        $sql=mysqli_query($dbconn,"SELECT * FROM indicador where id_indicador='$numero'");
+                        $sql=mysqli_query($dbconn,"SELECT * FROM metas_efectivas where id='$numero'");
 
                          echo "<TABLE>";
 
                         while ($reg=mysqli_fetch_array($sql))
                         {
-                            echo "<TR><TD>Clave:   </TD><TD>".$reg['id_indicador']."</TD></TR>";
-                            echo "<TR><TD>Nombre:  </TD><TD>".$reg['nombre']."</TD></TR>";
+                            echo "<TR><TD>Clave:   </TD><TD>".$reg['id']."</TD></TR>";
+                            echo "<TR><TD>Nombre:  </TD><TD>".$reg['id_programa']."</TD></TR>";
                             echo "<TR><TD>Descripcion:  </TD><TD>".$reg['descripcion']."</TD></TR>";
-                            echo "<TR><TD>Unidad: </TD><TD>".$reg['unidad']."</TD></TR>";
+                            
                         }
-                                                   
-                         
- 
-
                         echo  "</TABLE>";
-
-
-
                     }
-                                             
-                    
-
-                    //echo"tHIS". $numero; 
+      
                 }else
                 {
-                    echo"tHoS";
+                    echo"";
                 }
-
                 ?>
-
-
                 </div>
-
             </div><!-- .animated -->
         </div><!-- .content -->
+
+
+
+
 
 
         <div class="clearfix"></div>
@@ -419,6 +483,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/editarMeta.js"></script>
 
 
     <script src="assets/js/lib/data-table/datatables.min.js"></script>
