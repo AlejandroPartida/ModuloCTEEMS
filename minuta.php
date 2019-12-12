@@ -122,7 +122,6 @@
 <?php
 
         include 'connection.php';
-        //include 'subir_arc.php';
         session_start();
         include 'verificar.php';
 
@@ -151,24 +150,7 @@
                             });
                             </script>";
             }
-            /*
-            $sql= "SELECT * FROM lineamientos";
-            
-            $result = $conn->query($sql);      
-
-            if ($result->num_rows > 0) {
-                // output data of each row
-                while($row = $result->fetch_assoc()) {
-                    $id = $row["id_lineamiento"];
-                    $nombre = $row["nombre"];
-                    echo  "IdLineamiento: ".$id;
-                    echo  "Nombre: ".$nombre;
-                }
-            }*/
-
-
-            //$DBArchivo= new DBArchivo($conn);
-            //$DBArchivo ->uploadArchivo($_FILES);
+           
         }
         
 
@@ -539,4 +521,3 @@
     </script>
 </body>
 </html>
-

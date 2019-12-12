@@ -178,6 +178,7 @@
 <?php
 
         include 'connection.php';
+        //include 'subir_arc.php';
         session_start();
         include 'verificar.php';
 
@@ -206,51 +207,9 @@
                             });
                             </script>";
             }
-            /*
-            $sql= "SELECT * FROM lineamientos";
-            
-            $result = $conn->query($sql);      
-
-            if ($result->num_rows > 0) {
-                // output data of each row
-                while($row = $result->fetch_assoc()) {
-                    $id = $row["id_lineamiento"];
-                    $nombre = $row["nombre"];
-                    echo  "IdLineamiento: ".$id;
-                    echo  "Nombre: ".$nombre;
-                }
-            }*/
-
-
-            //$DBArchivo= new DBArchivo($conn);
-            //$DBArchivo ->uploadArchivo($_FILES);
+           
         }
-         if (isset($_POST['guardar1']))
-         {
-            $Archivo = $_FILES;
-            $rutaComite = 'Archivos/'.$Archivo['comite']['name'];
-            move_uploaded_file($Archivo['comite']['tmp_name'],$rutaComite);
-             $sqlUpload1 ="INSERT INTO dialogo_comite (comite,fk_programa) VALUES ('$rutaComite',1)";
-
-                if($result=mysqli_query($conn,$sqlUpload1))        
-        {
-            echo "<script type='text/javascript'>
-            document.addEventListener('DOMContentLoaded', function(event) {
-                swal('Exito!', '¡Se ha registrado exitosamente el comite!', 'success');
-                });
-                </script>";
-        }
-        else
-        {
-            echo "<script type='text/javascript'>
-            document.addEventListener('DOMContentLoaded', function(event) {
-            swal('Error!', '¡No se registro el comite correctamente!', 'error');
-            });
-            </script>";
-        }
-
-
-        }
+        
 
 
  ?>
@@ -288,70 +247,13 @@
                                     </a>
                         </div>
                     </div>
-
-
-                      <div class="modal fade" id="guardar" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
-                        <div class="modal-dialog " role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5 class="modal-title" id="smallModalLabel"> <strong>TABLA DIALOGO</strong></h5>
-                                    </div>
-                                    <div class="modal-body" style="padding: 30px;">
-                                       <form method="POST" enctype="multipart/form-data">
-                                        <label for="nombres" class=" form-control-label">MINUTA</label>
-
-                        <input type="file" name="archivo">
-                        <br><br>
-                       
-                        <button type="submit" class="btn btn-primary" name="guardar">Guardar</button>
-                         
-                            
-                        </form>   
-                                </div>
-                               </div> 
-                            </div>
- 
-                      
-
-
-            <!-- .animated -->
-        </div>
-                    <div class="modal fade" id="comite" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
-                        <div class="modal-dialog " role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <h5 class="modal-title" id="smallModalLabel"> <strong>TABLA DIALOGO</strong></h5>
-                                    </div>
-                                    <div class="modal-body" style="padding: 30px;">
-                                       <form method="POST" enctype="multipart/form-data">
-                                        <label for="nombres" class=" form-control-label">COMITE</label>
-
-                        <input type="file" name="comite">
-                        <br><br>
-                       
-                        <button type="submit" class="btn btn-primary" name="guardar1">Guardar</button>
-                         
-                            
-                        </form>   
-                                </div>
-                               </div> 
-                            </div>
-            <!-- .animated -->
-        </div></div>
- <!-- TABLA MUESTRA LA MINUTA -->
+           
 
 <div class="card-body"></div>
 
 <!-- TABLA QUE MUESTRA EL COMITE -->
  <h5 class="modal-title" id="smallModalLabel"> <strong> A C U E R D O S </strong></h5>
     <br>
-    
                             <div class="card-body">
                                 <a id='delete_row' class="pull-right btn btn-lg btn-danger">Borrar</a><a id="add_row" class="btn btn-success btn-lg pull-right">Agregar</a>
                 <form action="validar_acuerdo.php" method="post"  enctype="multipart/form-data">
