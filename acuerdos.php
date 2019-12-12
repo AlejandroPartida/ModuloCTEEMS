@@ -178,7 +178,6 @@
 <?php
 
         include 'connection.php';
-        //include 'subir_arc.php';
         session_start();
         include 'verificar.php';
 
