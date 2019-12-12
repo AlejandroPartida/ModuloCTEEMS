@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Inicio de Sesión - CTEEMS</title>
+    <title>Inicio de Sesión | CTEEMS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="shortcut icon" href="images/logo1.png">
@@ -42,23 +42,22 @@
             $token['pass'] = $pass;
             $tok = JWT::encode($token, 'secret_server_key');
             $_SESSION["encodedScript"]=$tok;
-            /*echo "<script>alert('".$SESSION["encodedScript"]."');</script>";
-            echo $SESSION["encodedScript"];*/
+            
             if ($row[2] == "general") {
-                //$_SESSION["usuario"]=$user;
-                echo ' <meta http-equiv="refresh" content="0;  url=http://localhost/proyectos/ModuloCTEEMS-1/ModuloCTEEMS-1/agregar.php">';
+                $_SESSION["usuario"]=$user;
+                echo ' <meta http-equiv="refresh" content="0;  url=directores/mod_prog.php">';
             }
-            elseif ($row[2] == "academico") {
-                //$_SESSION["usuario"]=$user;
-                echo ' <meta http-equiv="refresh" content="0;  url=http://localhost/proyectos/ModuloCTEEMS-1/ModuloCTEEMS-1/agregar.php">';
+            elseif ($row[2] == "administrador") {
+                $_SESSION["usuario"]=$user;
+                echo ' <meta http-equiv="refresh" content="0;  url=?.php">';
             }
             elseif ($row[2] == "coordinador") {
-                //$_SESSION["usuario"]=$user;
-                echo ' <meta http-equiv="refresh" content="0;  url=coordinador/coordinador.php">';
+                $_SESSION["usuario"]=$user;
+                echo ' <meta http-equiv="refresh" content="0;  url=?.php">';
             }
             elseif ($row[2] == "director") {
-                //$_SESSION["usuario"]=$user;
-                echo ' <meta http-equiv="refresh" content="0;  url=http://localhost/proyectos/ModuloCTEEMS-1/ModuloCTEEMS-1/agregar.php">';
+                $_SESSION["usuario"]=$user;
+                echo ' <meta http-equiv="refresh" content="0;  url=directores/lista_programas.php">';
             }
         }
     }
