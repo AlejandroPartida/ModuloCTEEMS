@@ -261,6 +261,7 @@
                 <h5 class="modal-title" id="smallModalLabel"> <strong>MINUTA </strong></h5>
                 <BR>
                 <div class="card">
+                     <h5 class="text-sm-center mt-2 mb-1">Dar clic para poder descargar la minuta:</h5>
                      <?php 
                   if(isset($_POST['ide']))
                     {
@@ -368,7 +369,7 @@
               Realizado
             </th>
             <th class="text-center" >
-              Imagen
+              Evidencia
             </th>
           </tr>
         </thead>
@@ -398,7 +399,7 @@
                   </table> 
                  
                   <input type="hidden" value="<?php echo $id; }?>" name="minuta">
-                  <input type='submit' class='btn btn-success' value='A G R E G A R'>
+                  <input type='submit' class='btn btn-success' value='G U A R D A R'>
                 </form>
                   </div>
 <!-- TERMINO DE TABLA QUE MUESTRA EL COMITE -->

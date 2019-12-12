@@ -185,7 +185,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="mx-auto d-block">
-                                        <img class="rounded-circle mx-auto d-block" src="images/linea.png" alt="Card image cap" width="40%">
+                                        <img class="rounded-circle mx-auto d-block" src="images/minuta.png" alt="Card image cap" width="40%">
                                     </div>
                                       <hr>
                                     <h5 class="text-sm-center mt-2 mb-1">A G R E G A R</h5>
