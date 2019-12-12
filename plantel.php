@@ -31,7 +31,7 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
@@ -45,20 +45,11 @@
         $idPrograma = $_POST["id"];
         $sqlComentario = "INSERT INTO comentarios_programas(sentBy, mensaje, fk_programa) VALUES('Coordinador', '$comentario', $idPrograma) ";
         if($res = mysqli_query($conn, $sqlComentario)) {
-            echo("<script type='text/javascript'>
-            const formComentario = document.getElementById('formComentario');
-            var successAlert = function(event) {
-                Swal.fire({
-                    title: 'Comentario enviado.',
-                    text: 'Tu comentario se ha enviado al Director General de ".$_COOKIE['idPlantel'].", 
-                    type: 'success',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Aceptar'
-                }).then(location.reload(););
-            }
-
-            formComentario.addEventListener('submit', successAlert, true);
-            </script>");
+            echo "<script type='text/javascript'>
+			document.addEventListener('DOMContentLoaded', function(event) {
+				swal('¡Éxito!', '¡Tu comentario ha sido enviado!', 'success');
+				});
+				</script>";
         } else {
             echo  mysqli_errno($conn) . ": " . mysqli_error($conn) . "\n";;
         }
@@ -73,82 +64,13 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
-                    </li>
-                    <li class="menu-title">Opcion1</li><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Components</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Buttons</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="ui-badges.html">Badges</a></li>
-                            <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Tabs</a></li>
-
-                            <li><i class="fa fa-id-card-o"></i><a href="ui-cards.html">Cards</a></li>
-                            <li><i class="fa fa-exclamation-triangle"></i><a href="ui-alerts.html">Alerts</a></li>
-                            <li><i class="fa fa-spinner"></i><a href="ui-progressbar.html">Progress Bars</a></li>
-                            <li><i class="fa fa-fire"></i><a href="ui-modals.html">Modals</a></li>
-                            <li><i class="fa fa-book"></i><a href="ui-switches.html">Switches</a></li>
-                            <li><i class="fa fa-th"></i><a href="ui-grids.html">Grids</a></li>
-                            <li><i class="fa fa-file-word-o"></i><a href="ui-typgraphy.html">Typography</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#"> <i class="menu-icon fa fa-graduation-cap"></i>Planteles</a>
+                        <a href="plantelesList.php"> <i class="menu-icon fa fa-graduation-cap"></i>Planteles</a>
                     </li>
 
-                    <li class="menu-title">Icons</li><!-- /.menu-title -->
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-fort-awesome"></i><a href="font-fontawesome.html">Font
-                                    Awesome</a></li>
-                            <li><i class="menu-icon ti-themify-logo"></i><a href="font-themify.html">Themefy Icons</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="widgets.html"> <i class="menu-icon ti-email"></i>Widgets </a>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-line-chart"></i><a href="charts-chartjs.html">Chart JS</a>
-                            </li>
-                            <li><i class="menu-icon fa fa-area-chart"></i><a href="charts-flot.html">Flot Chart</a></li>
-                            <li><i class="menu-icon fa fa-pie-chart"></i><a href="charts-peity.html">Peity Chart</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-area-chart"></i>Maps</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-map-o"></i><a href="maps-gmap.html">Google Maps</a></li>
-                            <li><i class="menu-icon fa fa-street-view"></i><a href="maps-vector.html">Vector Maps</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="menu-title">Extras</li><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
-                            <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
-    </aside><!-- /#left-panel -->
-
+    </aside>
     <!-- Left Panel -->
 
     <!-- Right Panel -->
@@ -274,7 +196,7 @@
 
                         </div>
                         <div class="modal-body">
-                            <form action="#" method="post" id="formComentario">
+                            <form action="plantel.php" method="post" id="formComentario">
                                 <div class="textarea-group">
                                     <label for="comentario">Comentario</label>
                                     <textarea id="comentario" type="text" class="form-control" name="comentario"
@@ -389,7 +311,7 @@
                                                     <button type='submit'class='btn btn-light'>Imprimir</button>
                                                   </form>
                                                  </td>";*/
-                                                printf('<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="setProgramId(\'%s\')">Comentar</button></td>', $id);
+                                                printf('<td><a href="detallesPrograma.php"><button type="button" class="btn btn-info" onclick="setCookie(\'%s\',\'%s\',\'%u\')"><i class="fa fa-info-circle"></i>&nbsp;&nbsp;Más detalles</button></a></td>', "idPrograma", $id, 1);
                                                 echo     "</tr>";
                         }
                     } else {
@@ -459,12 +381,14 @@
     </script>
 
     <script>
-    var idPrograma = document.getElementById('id');
-
-    //Obtener ID del programa para enviarlo a la tabla de comentarios
-    function setProgramId(programId) {
-        idPrograma.value = programId;        
-    }
+    function setCookie(c_name,value,expiredays)
+        {
+            var exdate=new Date()
+            exdate.setDate(exdate.getDate()+expiredays)
+            document.cookie=c_name+ "=" +escape(value)+
+            ((expiredays==null) ? "" : ";expires="+exdate.toGMTString())
+    		location.reload()
+        }
     </script>
 
 
