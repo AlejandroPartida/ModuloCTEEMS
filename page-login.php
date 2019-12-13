@@ -53,7 +53,7 @@
             }
             elseif ($row[2] == "coordinador") {
                 $_SESSION["usuario"]=$user;
-                echo ' <meta http-equiv="refresh" content="0;  url=?.php">';
+                echo ' <meta http-equiv="refresh" content="0;  url=coordinador/coordinador.php">';
             }
             elseif ($row[2] == "director") {
                 $_SESSION["usuario"]=$user;

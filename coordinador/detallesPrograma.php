@@ -69,7 +69,7 @@ include("../verificar.php");?>
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="../images/admin.jpg" alt="User Avatar">
+                            <h2><i class="fa fa-user"></i></h2>
                         </a>
 
                         <div class="user-menu dropdown-menu">
@@ -130,7 +130,7 @@ include("../verificar.php");?>
                                                         }
                 
                                                     } else {
-                                                        echo "0 results";
+                                                        echo "No hay resultados";
                                                     }
                                                         
                                                     echo "<td>$nombre</td>";
@@ -150,7 +150,7 @@ include("../verificar.php");?>
                                                         }
                 
                                                     } else {
-                                                        echo "0 results";
+                                                        echo "No hay resultados";
                                                     }
                                                         
                                                     echo "<td>$nombrePrograma</td>";
@@ -170,7 +170,7 @@ include("../verificar.php");?>
                                                         }
                 
                                                     } else {
-                                                        echo "0 results";
+                                                        echo "No hay resultados";
                                                     }
                                                         
                                                     echo "<td>$nombreObjetivo</td>";
@@ -195,7 +195,7 @@ include("../verificar.php");?>
                                                                     }
                             
                                                                 } else {
-                                                                    echo "0 results";
+                                                                    echo "No hay resultados";
                                                                 }
                                                                     
                                                                 echo "<span>$fechaInicio</span>
@@ -245,7 +245,7 @@ include("../verificar.php");?>
                                                 $metas = $row['metas_efectivas'];
                                                 }
                                             } else {
-                                                echo "0 results";
+                                                echo "No hay resultados";
                                             }
                                                                     
                                             echo "<td>$auto</td>
@@ -276,13 +276,13 @@ include("../verificar.php");?>
                                     <strong>Línea de acción:</strong>
                                     <?php 
                                         if(isset($_COOKIE['idPrograma'])) {
-                                        $sqlLineamiento = "SELECT fk_lineamiento FROM seguimiento WHERE fk_programa = ".$_COOKIE['idPrograma']." LIMIT 1;";
+                                        $sqlLineamiento = "SELECT id_linea FROM programas_lineamientos WHERE id_prog = ".$_COOKIE['idPrograma']." LIMIT 1;";
                                         $lineamiento = "13";
                                         $nombreLineamiento = "nombreLineamiento";
                                         $res3 = $conn -> query($sqlLineamiento);
                                         if($res3->num_rows > 0){
                                             while ($row = $res3->fetch_assoc()) {
-                                            $lineamiento = $row['fk_lineamiento']; 
+                                            $lineamiento = $row['id_linea']; 
                                             }
                                             $sqlNomLin = "SELECT nombre FROM lineamientos WHERE id_lineamiento = $lineamiento";
                                             $res4 = $conn -> query($sqlNomLin);
@@ -292,10 +292,10 @@ include("../verificar.php");?>
                                                 }
                 
                                             } else {
-                                                echo "0 results";
+                                                echo "No hay resultados";
                                             }
                                         } else {
-                                            echo "0 results";
+                                            echo "No hay resultados";
                                         }
                                         
                                                         
@@ -336,7 +336,7 @@ include("../verificar.php");?>
                                                         }
                 
                                                     } else {
-                                                        echo "0 results";
+                                                        echo "No hay resultados";
                                                     }
                                                         
                                                     
@@ -354,7 +354,7 @@ include("../verificar.php");?>
                                                         }
                 
                                                     } else {
-                                                        echo "0 results";
+                                                        echo "No hay resultados";
                                                     }
                                                         
                                                     
@@ -374,7 +374,7 @@ include("../verificar.php");?>
                                                         }
 
                                                     } else {
-                                                        echo "0 results";
+                                                        echo "No hay resultados";
                                                     }
                                                         
                                                     echo "<td>$mesInicio - $mesFin</td>"; 
@@ -415,7 +415,7 @@ include("../verificar.php");?>
                                                         }
 
                                                     } else {
-                                                        echo "0 results";
+                                                        echo "No hay resultados";
                                                     }
                                                         
                                                     
@@ -455,7 +455,7 @@ include("../verificar.php");?>
                                                         }
 
                                                     } else {
-                                                        echo "0 results";
+                                                        echo "No hay resultados";
                                                     }
                                                         
 
@@ -486,7 +486,7 @@ include("../verificar.php");?>
                                                         }
 
                                                     } else {
-                                                        echo "0 results";
+                                                        echo "No hay resultados";
                                                     }
                                                         
                                                     echo $retro; 
@@ -520,7 +520,7 @@ include("../verificar.php");?>
                                                         }
 
                                                     } else {
-                                                        echo "0 results";
+                                                        echo "No hay resultados";
                                                     }
                                                         
 
