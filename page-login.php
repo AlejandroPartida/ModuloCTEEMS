@@ -45,7 +45,7 @@
             
             if ($row[2] == "general") {
                 $_SESSION["usuario"]=$user;
-                echo ' <meta http-equiv="refresh" content="0;  url=directores/mod_prog.php">';
+                echo ' <meta http-equiv="refresh" content="0;  url=general/general.php">';
             }
             elseif ($row[2] == "administrador") {
                 $_SESSION["usuario"]=$user;
